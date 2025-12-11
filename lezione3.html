@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Lezione 3: Visualizzazione Dati - Grafici V-I</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .nav {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .nav a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: #9b59b6;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #9b59b6;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        .box {
+            background: #f4ecf7;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #9b59b6;
+            border-radius: 5px;
+        }
+        
+        .box.warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .box.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .step {
+            background: #f4ecf7;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 3px solid #9b59b6;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #9b59b6;
+            color: white;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .graph-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #9b59b6;
+        }
+        
+        .graph-placeholder {
+            display: inline-block;
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(45deg, #e0e0e0 25%, #f0f0f0 25%, #f0f0f0 50%, #e0e0e0 50%, #e0e0e0 75%, #f0f0f0 75%);
+            background-size: 20px 20px;
+            margin: 10px;
+            position: relative;
+        }
+        
+        .graph-placeholder::after {
+            content: "📊 Grafico Python";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .note {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            border-left: 3px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Lezione 3: Visualizzazione Dati</h1>
+        <p>Creazione della Caratteristica V-I e Salvataggio File</p>
+        <p><strong>Laboratorio di Sistemi e Automazione</strong></p>
+    </div>
+    
+    <div class="nav">
+        <a href="lezione2.html">← Lezione 2</a>
+        <a href="#setup">Setup</a>
+        <a href="#scatter">Scatter Plot</a>
+        <a href="#regressione">Grafico Regressione</a>
+        <a href="#salvataggio">Salvataggio</a>
+        <a href="Python_3.pdf" target="_blank">📄 PDF Originale</a>
+        <a href="lezione4.html">Lezione 4 →</a>
+    </div>
+    
+    <div class="content">
+        <h2>🎯 Introduzione</h2>
+        <p>Nella lezione precedente abbiamo calcolato la resistenza (<em>R</em>) e l'offset. Ora dobbiamo creare il <strong>grafico tecnico</strong> della relazione V-I.</p>
+        
+        <div class="box warning">
+            <h3>⚠️ Avviso per Google Colab</h3>
+            <p>Se hai chiuso il notebook o ricaricato la pagina dopo la Lezione 2, la memoria si è svuotata!</p>
+            <p><strong>Prima di fare i grafici, devi rieseguire l'importazione dei dati e delle librerie.</strong></p>
+        </div>
+        
+        <h2 id="setup">🔧 Fase 0: Setup dell'Ambiente</h2>
+        <div class="note">
+            <strong>Importante:</strong> Per evitare errori come <code>NameError: name 'plt' is not defined</code> o dati mancanti.
+        </div>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>Importazione Librerie e Dati</strong>
+        </div>
+        
+        <div class="code">
+# 1. Importiamo TUTTE le librerie necessarie
+import matplotlib.pyplot as plt  # Per i grafici
+import numpy as np                # Per i calcoli numerici
+from sklearn.linear_model import LinearRegression  # Per il modello
+
+# 2. Ricreiamo i dati della Lezione 2 (Misure Lab)
+X_corrente = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])
+y_tensione = np.array([1.1, 1.9, 3.2, 3.8, 5.1])
+
+# 3. Ricalcoliamo il modello (Fit)
+modello = LinearRegression()
+modello.fit(X_corrente, y_tensione)
+
+print("Setup completato: Librerie caricate e Modello pronto.")
+        </div>
+        
+        <h2 id="scatter">📊 Fase 1: Lo Scatter Plot (I Punti)</h2>
+        <p>Il primo passo è visualizzare le nostre misure 'grezze'. Usiamo <code>plt.scatter</code> che disegna i punti senza collegarli.</p>
+        
+        <div class="code">
+plt.figure(figsize=(8, 5))
+
+# Disegniamo i punti blu (Misure)
+plt.scatter(X_corrente, y_tensione, color='blue', label='Misure Lab')
+
+# Aggiungiamo la legenda per capire cos'è il punto blu
+plt.legend()
+plt.show()
+        </div>
+        
+        <div class="graph-container">
+            <h3>Risultato Atteso:</h3>
+            <div class="graph-placeholder"></div>
+            <p><em>Figura 1: Rappresentazione dei punti della nostra tabella</em></p>
+        </div>
+        
+        <h2 id="regressione">📈 Fase 2: Sovrapporre la Regressione</h2>
+        <p>Ora disegniamo la linea rossa che rappresenta il comportamento "ideale" calcolato dall'AI.</p>
+        
+        <div class="code">
+# 1. Calcoliamo i valori teorici ideali (sulla retta)
+y_predetti = modello.predict(X_corrente)
+
+plt.figure(figsize=(8, 5))
+
+# 2. Rimettiamo i punti blu (Scatter)
+plt.scatter(X_corrente, y_tensione, color='blue', label='Misure Lab')
+
+# 3. Aggiungiamo la LINEA rossa (Plot)
+# 'r-' significa: colore rosso (r), linea continua (-)
+plt.plot(X_corrente, y_predetti, 'r-', linewidth=2, label='Modello Calcolato')
+
+plt.legend()
+plt.show()
+        </div>
+        
+        <div class="graph-container">
+            <h3>Risultato Atteso:</h3>
+            <div class="graph-placeholder"></div>
+            <p><em>Figura 2: Punti sperimentali + Retta di regressione</em></p>
+        </div>
+        
+        <h2>🎨 Fase 3: Il Grafico Tecnico Completo</h2>
+        <p>Un grafico da presentare in una relazione tecnica deve essere <strong>auto-esplicativo</strong>.</p>
+        
+        <div class="code">
+plt.figure(figsize=(10, 6))  # Creiamo un foglio più grande
+
+# -- DISEGNO --
+plt.scatter(X_corrente, y_tensione, color='blue', s=80, label='Misure Sperimentali')
+plt.plot(X_corrente, y_predetti, color='red', linewidth=3, label='Caratteristica V-I (Regressione)')
+
+# -- ESTETICA (Labelling) --
+plt.title("Caratteristica V-I Componente Ohmico", fontsize=14)
+plt.xlabel("Corrente I [mA]", fontsize=12)
+plt.ylabel("Tensione V [Volt]", fontsize=12)
+
+# -- DETTAGLI --
+plt.grid(True, linestyle='--', alpha=0.7)  # Griglia tratteggiata
+plt.legend(fontsize=12)  # Legenda
+
+# -- OUTPUT --
+plt.show()
+        </div>
+        
+        <div class="box">
+            <h3>💡 Elementi di un Grafico Professionale:</h3>
+            <ul>
+                <li><strong>Titolo descrittivo</strong> (cosa stiamo mostrando)</li>
+                <li><strong>Etichette assi</strong> con unità di misura</li>
+                <li><strong>Legenda</strong> chiara</li>
+                <li><strong>Griglia</strong> per facilitare la lettura</li>
+                <li><strong>Dimensioni appropriate</strong> per la stampa</li>
+            </ul>
+        </div>
+        
+        <h2 id="salvataggio">💾 Fase 4: Salvare il Grafico su File</h2>
+        <p>Per inserire il grafico nella tua relazione, devi salvarlo come immagine.</p>
+        
+        <div class="note">
+            <strong>Nota su Colab:</strong> Dopo aver eseguito questo codice, apri la cartella Files (icona della cartella a sinistra dello schermo) per trovare e scaricare l'immagine <code>grafico_VI.png</code>.
+        </div>
+        
+        <div class="code">
+# Rieseguiamo il codice del grafico (senza plt.show)
+plt.figure(figsize=(10, 6))
+plt.scatter(X_corrente, y_tensione, color='blue', label='Misure')
+plt.plot(X_corrente, y_predetti, color='red', label='Modello')
+plt.title("Caratteristica V-I")
+plt.xlabel("Corrente [mA]")
+plt.ylabel("Tensione [V]")
+plt.grid(True)
+plt.legend()
+
+# COMANDO DI SALVATAGGIO
+# dpi=300 garantisce alta risoluzione per la stampa
+plt.savefig("grafico_VI.png", dpi=300)
+
+print("Immagine salvata! Controlla la cartella Files.")
+        </div>
+        
+        <div class="box success">
+            <h3>✅ Parametri di Salvataggio Importanti:</h3>
+            <p><strong>plt.savefig("nome_file.png", dpi=300)</strong></p>
+            <ul>
+                <li><code>dpi=300</code>: Risoluzione alta per stampa professionale</li>
+                <li>Formati supportati: PNG, PDF, SVG, JPG</li>
+                <li>Il file viene salvato nella cartella di lavoro corrente</li>
+            </ul>
+        </div>
+        
+        <h2>🔗 Risorse Online</h2>
+        <div class="box">
+            <p>Vuoi vedere il codice in azione senza digitare tutto?</p>
+            <p style="text-align: center;">
+                <a href="#" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                    [ ESECUZIONE PROGRAMMA IN COLAB ]
+                </a>
+            </p>
+        </div>
+        
+        <h2>🧠 E ora? Apriamo la Scatola Nera</h2>
+        <div class="box">
+            <p>Abbiamo visto che la macchina traccia una linea perfetta. Ma <strong>come fa a sceglierla</strong>?</p>
+            <p>Perché non ha tracciato una linea un po' più in alto o un po' più in basso?</p>
+            <p style="text-align: center; margin-top: 15px;">
+                <a href="lezione4.html" style="background: #3498db; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                    Vai alla Lezione 4: La Teoria dell'Errore →
+                </a>
+            </p>
+        </div>
+        
+        <h2>📋 Riassunto Comandi matplotlib</h2>
+        <div class="code">
+# COMANDI FONDAMENTALI MATPLOTLIB
+plt.figure(figsize=(10, 6))     # Crea figura dimensioni 10x6 pollici
+plt.scatter(x, y)               # Disegna punti (scatter plot)
+plt.plot(x, y)                  # Disegna linea
+plt.title("Titolo")             # Aggiunge titolo
+plt.xlabel("Etichetta X")       # Etichetta asse X
+plt.ylabel("Etichetta Y")       # Etichetta asse Y
+plt.grid(True)                  # Attiva griglia
+plt.legend()                    # Mostra legenda
+plt.show()                      # Mostra grafico
+plt.savefig("file.png", dpi=300)# Salva su file
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
+        <p>Lezione 3: Visualizzazione Dati con matplotlib</p>
+        <p>
+            <a href="lezione2.html">← Lezione 2</a> | 
+            <a href="Python_3.pdf" target="_blank">📄 Scarica PDF Lezione 3</a> | 
+            <a href="lezione4.html">Lezione 4 →</a>
+        </p>
+    </div>
+</body>
+</html>

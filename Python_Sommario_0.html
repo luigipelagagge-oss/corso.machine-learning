@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Corso - ML per Elettronica</title>
+    
+    <style>
+        /* --- STILI GENERALI --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        
+        body { 
+            background: #f0f2f5; 
+            color: #333; 
+            padding: 20px; 
+            padding-bottom: 40px; /* Spazio per il footer */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        
+        /* Tasto "Struttura Dati" in alto a destra */
+        .btn-top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .btn-top-right:hover { background: rgba(255,255,255,0.2); }
+
+        /* --- GRIGLIA LEZIONI --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .section-title {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #111827;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        /* --- CARD --- */
+        .card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s;
+            position: relative;
+            border-top: 5px solid #3b82f6;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card.phase-2 { border-top-color: #8b5cf6; }
+
+        .lesson-num {
+            position: absolute;
+            top: 10px; right: 10px;
+            background: #f3f4f6; color: #6b7280;
+            font-weight: bold; padding: 5px 10px;
+            border-radius: 5px; font-size: 0.8rem;
+        }
+
+        .card h3 { margin-bottom: 10px; font-size: 1.2rem; color: #1f2937; padding-right: 30px; }
+        .card p { font-size: 0.9rem; color: #6b7280; margin-bottom: 20px; line-height: 1.5; }
+
+        /* --- BOTTONI --- */
+        .btn-group { display: flex; gap: 10px; margin-top: auto; }
+        
+        .btn {
+            flex: 1; padding: 10px; border-radius: 6px;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            text-align: center; transition: background 0.2s;
+        }
+
+        .btn-lesson { background-color: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+        .btn-lesson:hover { background-color: #bae6fd; }
+
+        .btn-colab { background-color: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+        .btn-colab:hover { background-color: #fde68a; }
+
+        /* --- FOOTER --- */
+        .dashboard-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 30px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .footer-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #64748b;
+            text-decoration: none;
+            border-bottom: 1px dotted #64748b;
+        }
+        .footer-link:hover { color: #3b82f6; border-color: #3b82f6; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="header">
+        <a href="ponte_dati.html" class="btn-top-right">⚙️ Struttura Dati</a>
+
+        <h1>ML per Elettronica</h1>
+        <p>Dashboard del Corso</p>
+    </div>
+
+    <div class="grid">
+        
+        <h2 class="section-title">🎯 Fase 1: Le Basi</h2>
+
+        <div class="card">
+            <div class="lesson-num">Lez 1</div>
+            <h3>Fondamenti Concettuali</h3>
+            <p>Differenza tra Python, AI e Machine Learning. Introduzione all'ambiente.</p>
+            <div class="btn-group">
+                <a href="lezione1.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="lesson-num">Lez 2</div>
+            <h3>Regressione Lineare</h3>
+            <p>Usare scikit-learn per trovare la Legge di Ohm dai dati sperimentali.</p>
+            <div class="btn-group">
+                <a href="lezione2.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="lesson-num">Lez 3</div>
+            <h3>Visualizzazione Dati</h3>
+            <p>Creare grafici professionali V-I con la libreria Matplotlib.</p>
+            <div class="btn-group">
+                <a href="lezione3.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="lesson-num">Lez 4</div>
+            <h3>Teoria dell'Errore</h3>
+            <p>Capire l'MSE (Mean Squared Error) e l'apprendimento della macchina.</p>
+            <div class="btn-group">
+                <a href="lezione4.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">🚀 Fase 2: Avanzato</h2>
+
+        <div class="card phase-2">
+            <div class="lesson-num">Lez 5</div>
+            <h3>Sviluppo Software</h3>
+            <p>Creazione di librerie Python per automatizzare il calcolo circuitale.</p>
+            <div class="btn-group">
+                <a href="lezione5.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+        <div class="card phase-2">
+            <div class="lesson-num">Lez 6</div>
+            <h3>Il Diodo (Non-lineare)</h3>
+            <p>Regressione Polinomiale e i limiti dell'AI sui componenti non lineari.</p>
+            <div class="btn-group">
+                <a href="lezione6.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+        <div class="card phase-2">
+            <div class="lesson-num">Lez 7</div>
+            <h3>Modelli Ibridi</h3>
+            <p>Physics-Informed ML: correggere l'AI inserendo le leggi della fisica.</p>
+            <div class="btn-group">
+                <a href="lezione7.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+        <div class="card phase-2">
+            <div class="lesson-num">Lez 8</div>
+            <h3>Applicazione Finale</h3>
+            <p>Calcolo del punto di lavoro di un circuito completo usando il modello ibrido.</p>
+            <div class="btn-group">
+                <a href="lezione8.html" class="btn btn-lesson">📖 Vai alla Lezione</a>
+                <a href="https://colab.research.google.com/" target="_blank" class="btn btn-colab">▶️ Colab</a>
+            </div>
+        </div>
+
+    </div> <div class="dashboard-footer">
+        <p>© 2024 Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
+        <p>Tutti i materiali sono open-source e disponibili su GitHub</p>
+        
+        <br>
+        <a href="manuale_trasporto.html" class="footer-link">
+            📦 Guida Tecnica: Come esportare questo corso
+        </a>
+    </div>
+
+</div> </body>
+</html>

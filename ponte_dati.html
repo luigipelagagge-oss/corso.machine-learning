@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Meccanica dei Dati: HTML vs Python</title>
+    <style>
+        /* [PROCEDIMENTO GRAFICO]: Usiamo lo stile scuro per mantenere continuità con l'Intro */
+        body { font-family: 'Segoe UI', sans-serif; background: #1e1e1e; color: #ddd; padding: 20px; text-align: center; }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        /* Griglia a due colonne per forzare il confronto visivo */
+        .confronto {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 50% spazio a testa */
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .box {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 5px solid; 
+            text-align: left;
+        }
+
+        /* Colori semantici: Arancione=Web, Blu=Dati/Python */
+        .box-html { border-color: #e34c26; } 
+        .box-py   { border-color: #3b82f6; } 
+
+        h2 { margin-top: 0; }
+        .box-html h2 { color: #e34c26; }
+        .box-py h2   { color: #3b82f6; }
+
+        pre {
+            background: #111;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        
+        .commento { color: #6a9955; font-style: italic; }
+
+        .btn-procedi {
+            display: inline-block;
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            transition: transform 0.2s;
+        }
+        .btn-procedi:hover { background: #2563eb; transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>⚙️ La Meccanica dei Dati</h1>
+        
+        <p>Il Browser vede <strong>Grafica</strong>, l'Intelligenza Artificiale vede <strong>Matrici</strong>.</p>
+
+        <div class="confronto">
+            
+            <div class="box box-html">
+                <h2>1. HTML (Il Web)</h2>
+                <p>Qui i dati sono "impaginati" per l'occhio umano.</p>
+                <p>È solo <strong>Testo Visualizzato</strong>.</p>
+                
+                <pre style="color: #e34c26;">
+&lt;ul&gt;
+  &lt;li&gt;5 Volt&lt;/li&gt;
+  &lt;li&gt;10 Volt&lt;/li&gt;
+&lt;/ul&gt;</pre>
+                <p><em>Il computer qui NON sa che "5" è un numero. Lo vede come una lettera disegnata.</em></p>
+            </div>
+
+            <div class="box box-py">
+                <h2>2. Python (L'AI)</h2>
+                <p>Qui i dati sono "nudi" per il processore.</p>
+                <p>Sono <strong>Numeri Calcolabili</strong>.</p>
+                
+                <pre style="color: #3b82f6;">
+import numpy as np
+
+<span class="commento"># Array di numeri (Vettori)</span>
+tensioni = np.array([5, 10])
+
+<span class="commento"># Qui possiamo fare matematica!</span>
+corrente = tensioni / 220</pre>
+                <p><em>Questa è la struttura che useremo nel Machine Learning.</em></p>
+            </div>
+
+        </div>
+
+        <div style="font-size: 2rem; margin: 30px 0; color: #666;">⬇️ Cambio di Mentalità ⬇️</div>
+
+        <p>Ora che hai capito la differenza, entra nel laboratorio di Python.</p>
+
+        <a href="Python_Sommario_0.html" class="btn-procedi">🚀 Vai al Corso ML</a>
+
+    </div>
+
+</body>
+</html>

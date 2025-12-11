@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Lezione 2: Regressione Lineare in Elettronica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .nav {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .nav a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        .box {
+            background: #ecf0f1;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+        }
+        
+        .box.warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .box.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        
+        .code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .data-table th {
+            background: #3498db;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .formula {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            font-family: 'Cambria', 'Times New Roman', serif;
+        }
+        
+        .step {
+            background: #e8f4fc;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📈 Lezione 2: Machine Learning in Elettronica</h1>
+        <p>Caratterizzazione V-I e Regressione Lineare</p>
+        <p><strong>Laboratorio di Sistemi e Automazione</strong></p>
+    </div>
+    
+    <div class="nav">
+        <a href="lezione1.html">← Lezione 1</a>
+        <a href="#obiettivo">Obiettivo</a>
+        <a href="#dati">Dati Sperimentali</a>
+        <a href="#codice">Codice Python</a>
+        <a href="Python_2.pdf" target="_blank">📄 PDF Originale</a>
+        <a href="lezione3.html">Lezione 3 →</a>
+    </div>
+    
+    <div class="content">
+        <h2 id="obiettivo">🎯 Obiettivo del Laboratorio</h2>
+        <p>In elettronica, spesso dobbiamo determinare il valore di un componente sconosciuto analizzando il suo comportamento.</p>
+        
+        <div class="box">
+            <h3>⚡ Oggi useremo:</h3>
+            <p><strong>Regressione Lineare</strong> per calcolare la resistenza <em>R</em> di un componente partendo da misure sperimentali di Corrente (I) e Tensione (V) affette da errore.</p>
+        </div>
+        
+        <h2>🔧 Il Modello Fisico: La Legge di Ohm</h2>
+        <div class="formula">
+            V = R · I
+        </div>
+        
+        <p>Confrontandola con l'equazione generica della retta (y = mx + q):</p>
+        
+        <div class="data-table">
+            <tr>
+                <th>Elemento</th>
+                <th>Legge di Ohm</th>
+                <th>Regressione Lineare</th>
+            </tr>
+            <tr>
+                <td><strong>Input (x)</strong></td>
+                <td>Corrente I (mA)</td>
+                <td>Variabile indipendente</td>
+            </tr>
+            <tr>
+                <td><strong>Output (y)</strong></td>
+                <td>Tensione V (Volt)</td>
+                <td>Variabile dipendente</td>
+            </tr>
+            <tr>
+                <td><strong>Pendenza (m)</strong></td>
+                <td>Resistenza R (kΩ)</td>
+                <td>Coefficiente angolare</td>
+            </tr>
+            <tr>
+                <td><strong>Intercetta (q)</strong></td>
+                <td>Errore di offset</td>
+                <td>Bias del modello</td>
+            </tr>
+        </div>
+        
+        <h2 id="dati">📊 Fase 1: I Dati "Rumorosi" (Input)</h2>
+        <p>Abbiamo effettuato 5 misure in laboratorio usando un multimetro non calibrato perfettamente:</p>
+        
+        <div class="data-table">
+            <tr>
+                <th>Corrente I (mA)</th>
+                <th>Tensione V (Volt) - Misurata</th>
+                <th>V/I (kΩ) - Singolo punto</th>
+            </tr>
+            <tr>
+                <td>1.0</td>
+                <td>1.1</td>
+                <td>1.10</td>
+            </tr>
+            <tr>
+                <td>2.0</td>
+                <td>1.9</td>
+                <td>0.95</td>
+            </tr>
+            <tr>
+                <td>3.0</td>
+                <td>3.2</td>
+                <td>1.07</td>
+            </tr>
+            <tr>
+                <td>4.0</td>
+                <td>3.8</td>
+                <td>0.95</td>
+            </tr>
+            <tr>
+                <td>5.0</td>
+                <td>5.1</td>
+                <td>1.02</td>
+            </tr>
+        </div>
+        
+        <div class="box warning">
+            <h3>⚠️ Problema!</h3>
+            <p>Se calcolassimo R = V/I punto per punto, otterremmo <strong>5 valori diversi</strong> (1.10, 0.95, 1.07, 0.95, 1.02 kΩ).</p>
+            <p>Qual è il valore corretto di R?</p>
+        </div>
+        
+        <h2 id="codice">💻 Fase 2: Il Dialogo con Python</h2>
+        <p>Usiamo l'AI per trovare la <strong>"miglior retta possibile"</strong> che media gli errori.</p>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>Preparazione Dati</strong>
+        </div>
+        <div class="code">
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# 1. PREPARAZIONE DATI
+# X (Input): Corrente in mA. NOTA: Servono le doppie parentesi [[ ]]
+X_corrente = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])
+
+# y (Target): Tensione in Volt misurata (con errore)
+y_tensione = np.array([1.1, 1.9, 3.2, 3.8, 5.1])
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>Addestramento (Fitting)</strong>
+        </div>
+        <div class="code">
+# 2. ADDESTRAMENTO
+# Chiediamo alla macchina di trovare m (Resistenza) e q (Offset)
+modello = LinearRegression()
+modello.fit(X_corrente, y_tensione)
+
+print("Analisi completata.")
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>Interpretazione Risultati</strong>
+        </div>
+        <div class="code">
+# 3. RISULTATI
+resistenza = modello.coef_[0]  # Coefficiente angolare (m)
+offset = modello.intercept_    # Intercetta (q)
+
+print(f"Resistenza calcolata: {resistenza:.2f} kΩ")
+print(f"Offset/errore multimetro: {offset:.2f} V")
+        </div>
+        
+        <h2>📐 Risultati Attesi</h2>
+        <div class="box success">
+            <h3>✅ Output del Programma:</h3>
+            <p><strong>Coefficiente angolare (m):</strong> ≈ 0.98 kΩ <em>(Questa è la Resistenza R)</em></p>
+            <p><strong>Intercetta (q):</strong> ≈ 0.05 V <em>(Questo è l'errore di offset del multimetro)</em></p>
+        </div>
+        
+        <div class="box">
+            <h3>🤔 Ma questi numeri sono affidabili?</h3>
+            <p>Per rispondere, dobbiamo capire visivamente cosa significa regressione lineare...</p>
+        </div>
+        
+        <h2>👁️ Che cos'è visivamente la Regressione?</h2>
+        <div style="text-align: center; margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <div style="font-size: 2em;">📈</div>
+            <p><strong>La Retta di Regressione</strong> è la linea che passa "nel mezzo" della nuvola di punti, minimizzando la distanza media da ciascuno di essi.</p>
+            <p>È il <em>miglior compromesso possibile</em> tra tutti gli errori di misura.</p>
+        </div>
+        
+        <h2>🔮 Prossimo Step: La Visualizzazione</h2>
+        <div class="box">
+            <p>I numeri da soli non bastano a un tecnico. Nella prossima lezione impareremo a:</p>
+            <ol>
+                <li>Disegnare i punti sperimentali (Scatter Plot)</li>
+                <li>Sovrapporre la retta calcolata</li>
+                <li>Vedere a occhio nudo quanto è preciso il componente</li>
+            </ol>
+            <p style="text-align: center; margin-top: 15px;">
+                <a href="lezione3.html" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+                    Vai alla Lezione 3: Visualizzazione Dati →
+                </a>
+            </p>
+        </div>
+        
+        <h2>🧠 Riassunto Apprendimenti</h2>
+        <div class="data-table">
+            <tr>
+                <th>Concetto</th>
+                <th>Cosa Abbiamo Imparato</th>
+            </tr>
+            <tr>
+                <td><strong>Regressione Lineare</strong></td>
+                <td>Trovare la miglior retta che approssima dati rumorosi</td>
+            </tr>
+            <tr>
+                <td><strong>Legge di Ohm + ML</strong></td>
+                <td>V = R·I corrisponde a y = mx + q</td>
+            </tr>
+            <tr>
+                <td><strong>scikit-learn</strong></td>
+                <td>Libreria Python per Machine Learning</td>
+            </tr>
+            <tr>
+                <td><strong>Dati Realistici</strong></td>
+                <td>Le misure sperimentali hanno sempre errori</td>
+            </tr>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
+        <p>Lezione 2: Regressione Lineare e Caratterizzazione V-I</p>
+        <p>
+            <a href="lezione1.html">← Lezione 1</a> | 
+            <a href="Python_2.pdf" target="_blank">📄 Scarica PDF Lezione 2</a> | 
+            <a href="lezione3.html">Lezione 3 →</a>
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio HTML - Storia e Struttura</title>
+    
+    <style>
+        /* --- STILI DI BASE --- */
+        body { font-family: 'Segoe UI', sans-serif; background-color: #111; color: #eee; padding: 20px; text-align: center; }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #222;
+            padding: 40px;
+            border-radius: 15px;
+            border-left: 10px solid #e34c26; /* Arancione HTML */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 { color: #e34c26; margin-bottom: 5px; }
+        h2 { border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 40px; color: #fff; }
+        p { color: #aaa; font-size: 1.1rem; line-height: 1.6; }
+
+        /* --- BOX STORIA (CERN) --- */
+        .history-box {
+            background: #2d2d2d;
+            border: 1px solid #444;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: left;
+            position: relative;
+        }
+        
+        /* Un'etichetta carina "LO SAPEVI CHE?" */
+        .history-badge {
+            background: #e34c26;
+            color: white;
+            padding: 5px 15px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .history-box strong { color: #fff; }
+
+        /* --- ACRONIMO --- */
+        .acronimo-box { display: flex; justify-content: space-around; flex-wrap: wrap; margin: 30px 0; gap: 10px; }
+        .lettera { background: #333; padding: 15px; border-radius: 10px; border: 1px solid #e34c26; flex: 1; min-width: 150px; }
+        .lettera strong { color: #e34c26; font-size: 1.5rem; display: block; }
+
+        /* --- ESEMPI CODICE --- */
+        .example-box { background: #333; margin: 30px 0; padding: 20px; border-radius: 10px; text-align: left; border: 1px solid #444; }
+        .code-view { font-family: 'Courier New', monospace; background: #111; color: #10b981; padding: 15px; border-radius: 5px; margin-bottom: 15px; border-left: 3px solid #e34c26; }
+        .result-view { background: #fff; color: #000; padding: 20px; border-radius: 5px; border: 1px dashed #ccc; }
+
+        /* --- QUIZ --- */
+        .quiz-section { margin-top: 50px; padding: 30px; background: #1a1a1a; border: 2px solid #e34c26; border-radius: 15px; }
+        .quiz-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #333; color: white; border: 1px solid #555; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+        .quiz-btn:hover { background: #444; }
+        .correct { background: #10b981 !important; border-color: #10b981; }
+        .wrong { background: #ef4444 !important; opacity: 0.6; }
+
+        #btn-back { display: none; margin-top: 30px; padding: 15px 30px; background: #e34c26; color: white; text-decoration: none; border-radius: 50px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <span style="font-size: 3rem;">🦴</span>
+        <h1>Che cos'è l'HTML?</h1>
+        <p>Il linguaggio che ha creato il Web come lo conosciamo.</p>
+
+        <div class="acronimo-box">
+            <div class="lettera">
+                <strong>H-T</strong>
+                <span>Hyper Text</span><br><small>(Testo collegato)</small>
+            </div>
+            <div class="lettera">
+                <strong>M</strong>
+                <span>Markup</span><br><small>(Etichettatura)</small>
+            </div>
+            <div class="lettera">
+                <strong>L</strong>
+                <span>Language</span><br><small>(Lingua)</small>
+            </div>
+        </div>
+
+        <div class="history-box">
+            <span class="history-badge">📜 STORIA</span>
+            <h3 style="margin-top: 0; color: #e34c26;">1989: La nascita al CERN</h3>
+            <p>
+                Siamo a Ginevra, nel più grande laboratorio di fisica al mondo. Lo scienziato <strong>Tim Berners-Lee</strong> aveva un problema: i ricercatori non riuscivano a scambiarsi i dati perché usavano sistemi diversi.
+            </p>
+            <p>
+                Inventò l'HTML non per fare videogiochi, ma per permettere la <strong>condivisione libera della conoscenza</strong> scientifica.
+            </p>
+            <p style="font-style: italic; color: #888; font-size: 0.9rem;">
+                Il primo sito web della storia (1991) era solo testo nero su sfondo bianco con dei link blu.
+            </p>
+        </div>
+
+        <hr style="border-color: #333; margin: 30px 0;">
+        
+        <h2>Il Laboratorio Pratico</h2>
+
+        <div class="example-box">
+            <h3>1. I Titoli (Gerarchia)</h3>
+            <div class="code-view">&lt;h1&gt;Titolo Gigante&lt;/h1&gt;</div>
+            <div class="result-view"><h1>Titolo Gigante</h1></div>
+        </div>
+
+        <div class="example-box">
+            <h3>2. I Link (L'invenzione di Tim)</h3>
+            <div class="code-view">&lt;a href="..."&gt;Clicca qui&lt;/a&gt;</div>
+            <div class="result-view"><a href="#">Clicca qui (esempio)</a></div>
+        </div>
+
+        <div class="quiz-section">
+            <h3>🔒 Verifica Rapida</h3>
+            <p>Perché Tim Berners-Lee ha inventato l'HTML al CERN?</p>
+            
+            <button class="quiz-btn" onclick="checkAnswer(this, false)">Per vendere prodotti online</button>
+            <button class="quiz-btn" onclick="checkAnswer(this, true)">Per condividere documenti tra scienziati</button>
+            <button class="quiz-btn" onclick="checkAnswer(this, false)">Per creare un social network</button>
+
+            <p id="feedback" style="font-weight: bold; margin-top: 15px;"></p>
+
+            <a href="Introduzione_Web.html" id="btn-back">✅ Torna alla Home</a>
+        </div>
+
+    </div>
+
+    <script>
+        function checkAnswer(btn, isCorrect) {
+            let feedback = document.getElementById("feedback");
+            let backBtn = document.getElementById("btn-back");
+
+            if (isCorrect) {
+                btn.classList.add("correct");
+                feedback.innerHTML = "Esatto! 🎓 Il web nasce per la Scienza e la Condivisione.";
+                feedback.style.color = "#10b981";
+                backBtn.style.display = "inline-block";
+                disableButtons();
+            } else {
+                btn.classList.add("wrong");
+                feedback.innerHTML = "Sbagliato. Rileggi il box sulla storia qui sopra! ☝️";
+                feedback.style.color = "#ef4444";
+            }
+        }
+
+        function disableButtons() {
+            let btns = document.querySelectorAll(".quiz-btn");
+            btns.forEach(b => b.disabled = true);
+        }
+    </script>
+
+</body>
+</html>

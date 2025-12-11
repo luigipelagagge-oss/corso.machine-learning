@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Lezione 1: Python, AI e ML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .nav {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .nav a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        .box {
+            background: #ecf0f1;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+        }
+        
+        .code {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #3498db;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧠 Lezione 1: Introduzione all'Ecosistema Python</h1>
+        <p>Distinzione tra Linguaggio, Intelligenza Artificiale e Machine Learning</p>
+        <p><strong>ML per Elettronica</strong></p>
+    </div>
+    
+    <div class="nav">
+        <a href="#concetti">Concetti Base</a>
+        <a href="#gerarchia">Gerarchia AI</a>
+        <a href="#esempi">Esempi Codice</a>
+        <a href="Python_1.pdf" target="_blank">📄 PDF Originale</a>
+    </div>
+    
+    <div class="content">
+        <h2 id="concetti">🎯 Concetti Chiave</h2>
+        <p>Nel panorama tecnologico, termini come <strong>Python</strong>, <strong>AI</strong> e <strong>ML</strong> vengono spesso confusi.</p>
+        
+        <div class="box">
+            <h3>⚡ Distinzione Fondamentale</h3>
+            <p><strong>Python è lo strumento</strong> - il linguaggio di programmazione</p>
+            <p><strong>Machine Learning è l'applicazione</strong> - una tecnica di analisi dati</p>
+            <p><em>Analogia: Python è la penna, ML è la poesia.</em></p>
+        </div>
+        
+        <h2 id="gerarchia">🔍 Gerarchia dell'Intelligenza Artificiale</h2>
+        <div style="text-align: center; margin: 30px 0;">
+            <div style="display: inline-block; background: #e74c3c; color: white; padding: 20px; border-radius: 8px; margin: 10px;">
+                <h3>🤖 AI</h3>
+                <p>Termine più ampio</p>
+            </div>
+            <div style="display: inline-block; font-size: 24px; margin: 10px;">→</div>
+            <div style="display: inline-block; background: #3498db; color: white; padding: 20px; border-radius: 8px; margin: 10px;">
+                <h3>📊 ML</h3>
+                <p>Sottoinsieme AI</p>
+            </div>
+            <div style="display: inline-block; font-size: 24px; margin: 10px;">→</div>
+            <div style="display: inline-block; background: #2ecc71; color: white; padding: 20px; border-radius: 8px; margin: 10px;">
+                <h3>🧠 Deep Learning</h3>
+                <p>Sottoinsieme ML</p>
+            </div>
+        </div>
+        
+        <h2>🔄 Programmazione vs Machine Learning</h2>
+        <table>
+            <tr>
+                <th>Aspetto</th>
+                <th>Programmazione Tradizionale</th>
+                <th>Machine Learning</th>
+            </tr>
+            <tr>
+                <td><strong>Input</strong></td>
+                <td>Dati + Regole (formule)</td>
+                <td>Dati + Risultati (esempi)</td>
+            </tr>
+            <tr>
+                <td><strong>Output</strong></td>
+                <td>Risultati</td>
+                <td>Modello/Regole</td>
+            </tr>
+            <tr>
+                <td><strong>Esempio Elettronico</strong></td>
+                <td>Calcolare V = R·I con R noto</td>
+                <td>Trovare R da misure V-I</td>
+            </tr>
+        </table>
+        
+        <h2 id="esempi">🐍 Esempi di Codice Python</h2>
+        
+        <h3>Calcolo Scientifico (NON è ML)</h3>
+        <div class="code">
+# Importiamo numpy per calcoli matematici
+import numpy as np
+
+# Calcolo deterministico: seno di 90 gradi
+risultato = np.sin(np.deg2rad(90))
+print(risultato)  # Output: 1.0
+        </div>
+        
+        <h3>Machine Learning (Regressione Lineare)</h3>
+        <div class="code">
+# Importiamo la libreria ML
+from sklearn.linear_model import LinearRegression
+
+# Dati di addestramento: Input (X) e Output (y)
+X = [[1], [2], [3]]  # Input: 1, 2, 3
+y = [2, 4, 6]        # Output: 2, 4, 6
+
+# Il modello impara la relazione y = 2x
+model = LinearRegression().fit(X, y)
+        </div>
+        
+        <div class="box">
+            <h3>📚 Perché Python per il ML?</h3>
+            <p>Python è diventato standard grazie alle sue librerie:</p>
+            <ul>
+                <li><strong>numpy/scipy</strong> - Calcolo scientifico</li>
+                <li><strong>scikit-learn</strong> - Algoritmi ML</li>
+                <li><strong>matplotlib</strong> - Visualizzazione</li>
+                <li><strong>pandas</strong> - Analisi dati</li>
+            </ul>
+        </div>
+        
+        <h2>✅ Conclusioni</h2>
+        <div class="box" style="background: #d5f4e6; border-left-color: #2ecc71;">
+            <p><strong>Scrivere codice Python ≠ Fare Intelligenza Artificiale</strong></p>
+            <p>Se usi formule note → Calcolo Scientifico</p>
+            <p>Se apprendi dai dati → Machine Learning</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
+        <p>Lezione 1: Introduzione all'Ecosistema Python</p>
+        <p><a href="Python_1.pdf" target="_blank">📄 Scarica la versione PDF completa</a></p>
+    </div>
+</body>
+</html>

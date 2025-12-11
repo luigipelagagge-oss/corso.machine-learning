@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Manuale di Trasporto - Guida Tecnica</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', monospace;
+            background-color: #0f172a;
+            color: #cbd5e1;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 10px;
+            border-top: 5px solid #06b6d4;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1 { color: #06b6d4; text-transform: uppercase; letter-spacing: 2px; }
+        h2 { color: #fff; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-top: 30px; }
+        
+        .warning-box {
+            background: #451a03;
+            border-left: 5px solid #f59e0b;
+            color: #fbbf24;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .folder-structure {
+            background: #000;
+            color: #22c55e;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+
+        .step {
+            margin-bottom: 20px;
+            background: #334155;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .step-number {
+            background: #06b6d4;
+            color: #000;
+            font-weight: bold;
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 15px; flex-shrink: 0;
+        }
+
+        .btn-home {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 30px;
+            border: 1px solid #06b6d4;
+            color: #06b6d4;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn-home:hover { background: #06b6d4; color: #000; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📦 Checklist di Trasporto</h1>
+        <p>Verifica di avere tutti i file prima di inviare il corso.</p>
+
+        <h2>1. L'Inventario Completo</h2>
+        <p>Ecco la lista esatta dei file che devono essere presenti nella cartella. <br>
+        <em>(I file che finiscono con .old o .bak possono essere ignorati o cancellati).</em></p>
+        
+        <div class="folder-structure">
+📁 CARTELLA_CORSO_ML/
+│
+├── 🔴 IL PUNTO DI PARTENZA
+│   └── 📄 Introduzione_Web.html
+│
+├── 🟠 I PONTI LOGICI
+│   ├── 📄 ponte_dati.html
+│   └── 📄 manuale_trasporto.html
+│
+├── 🟡 LE SPIEGAZIONI "ABC"
+│   ├── 📄 spiegazione_html.html
+│   ├── 📄 spiegazione_css.html
+│   └── 📄 spiegazione_js.html
+│
+├── 🔵 IL CORSO MACHINE LEARNING
+│   └── 📄 Python_Sommario_0.html  (Dashboard)
+│
+├── 🟣 LE PAGINE LEZIONE
+│   ├── 📄 lezione1.html
+│   ├── 📄 lezione2.html
+│   ├── 📄 lezione3.html
+│   ├── 📄 lezione4.html
+│   ├── 📄 lezione5.html
+│   ├── 📄 lezione6.html
+│   ├── 📄 lezione7.html
+│   └── 📄 lezione8.html
+│
+└── ⚪ I DOCUMENTI PDF (Da Stampare)
+    ├── 📄 Python_1.pdf
+    ├── 📄 Python_2.pdf
+    ├── 📄 Python_3.pdf
+    ├── 📄 Python_4.pdf
+    ├── 📄 Python_5.pdf
+    ├── 📄 Python_6.pdf
+    ├── 📄 Python_7.pdf
+    └── 📄 Python_8.pdf
+        </div>
+
+        <div class="warning-box">
+            ⚠️ <strong>ATTENZIONE:</strong> Assicurati che i nomi dei file siano scritti ESATTAMENTE come sopra (minuscole/maiuscole contano!).
+        </div>
+
+        <h2>2. Procedura di Export</h2>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div>Controlla che tutti i <strong>20 file</strong> elencati sopra siano nella cartella.</div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <div>(Opzionale) Puoi cancellare i file che finiscono con <code>.old</code> per rendere lo zip più leggero e pulito.</div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <div>Tasto destro sulla cartella -> <strong>Invia a -> Cartella compressa (ZIP)</strong>.</div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <div>Invia lo ZIP allo studente.</div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="Introduzione_Web.html" class="btn-home">⬅ Torna all'Inizio</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
