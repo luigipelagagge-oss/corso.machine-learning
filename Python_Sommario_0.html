@@ -13,7 +13,7 @@
             background: #f0f2f5; 
             color: #333; 
             padding: 20px; 
-            padding-bottom: 40px; /* Spazio per il footer */
+            padding-bottom: 40px; 
         }
 
         .container {
@@ -36,7 +36,7 @@
 
         .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
         
-        /* Tasto "Struttura Dati" in alto a destra */
+        /* TASTO DESTRO (Struttura Dati) */
         .btn-top-right {
             position: absolute;
             top: 20px;
@@ -50,6 +50,21 @@
             transition: 0.3s;
         }
         .btn-top-right:hover { background: rgba(255,255,255,0.2); }
+
+        /* [NUOVO] TASTO SINISTRO (Home) */
+        .btn-top-left {
+            position: absolute;
+            top: 20px;
+            left: 20px; /* Posizionato a sinistra */
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .btn-top-left:hover { background: rgba(255,255,255,0.2); }
 
         /* --- GRIGLIA LEZIONI --- */
         .grid {
@@ -138,6 +153,8 @@
 <div class="container">
     
     <div class="header">
+        <a href="index.html" class="btn-top-left">🏠 Home</a>
+
         <a href="ponte_dati.html" class="btn-top-right">⚙️ Struttura Dati</a>
 
         <h1>ML per Elettronica</h1>
@@ -230,15 +247,12 @@
             </div>
         </div>
 
-    </div> <div class="dashboard-footer">
+    </div> 
+    
+    <div class="dashboard-footer">
         <p>© 2024 Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
         <p>Tutti i materiali sono open-source e disponibili su GitHub</p>
         
         <br>
         <a href="manuale_trasporto.html" class="footer-link">
-            📦 Guida Tecnica: Come esportare questo corso
-        </a>
-    </div>
-
-</div> </body>
-</html>
+            📦
