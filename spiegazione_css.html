@@ -6,105 +6,35 @@
     <title>Laboratorio CSS - Stile & Verifica</title>
     
     <style>
-        /* --- STILI DI BASE --- */
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background-color: #111; 
-            color: #eee; 
-            padding: 20px; 
-            text-align: center; 
-            transition: 0.5s; 
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #222;
-            padding: 40px;
-            border-radius: 15px;
-            border-left: 10px solid #264de4; /* BLU CSS */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
+        /* ... (CSS omesso per brevità, non ci sono modifiche qui) ... */
+        body { font-family: 'Segoe UI', sans-serif; background-color: #111; color: #eee; padding: 20px; text-align: center; transition: 0.5s; }
+        .container { max-width: 800px; margin: 0 auto; background: #222; padding: 40px; border-radius: 15px; border-left: 10px solid #264de4; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         h1 { color: #264de4; margin-bottom: 5px; }
         h2 { border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 40px; color: #fff; text-align: left; }
         p { color: #aaa; font-size: 1.1rem; line-height: 1.6; text-align: left; }
-
-        /* --- PARTE 1: STORIA --- */
-        .history-box {
-            background: #2d2d2d;
-            border: 1px solid #444;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 30px 0;
-            text-align: left;
-        }
-        .history-badge {
-            background: #264de4; color: white; padding: 5px 15px;
-            font-weight: bold; font-size: 0.8rem; border-radius: 20px;
-            display: inline-block; margin-bottom: 15px;
-        }
-
-        /* --- PARTE 2: CAMALEONTE (Interattivo) --- */
-        #camaleonte {
-            width: 200px;
-            padding: 20px;
-            margin: 30px auto;
-            background-color: #444;
-            color: white;
-            font-weight: bold;
-            border: 2px solid #fff;
-            text-align: center; /* Centra il testo nel box */
-            transition: all 0.5s ease;
-        }
-
-        .btn-panel {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;
-        }
-
-        .btn-css {
-            padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;
-            font-weight: bold; background: #333; color: #fff; border-left: 3px solid #777;
-            transition: 0.2s;
-        }
+        .history-box { background: #2d2d2d; border: 1px solid #444; padding: 25px; border-radius: 10px; margin: 30px 0; text-align: left; }
+        .history-badge { background: #264de4; color: white; padding: 5px 15px; font-weight: bold; font-size: 0.8rem; border-radius: 20px; display: inline-block; margin-bottom: 15px; }
+        #camaleonte { width: 200px; padding: 20px; margin: 30px auto; background-color: #444; color: white; font-weight: bold; border: 2px solid #fff; text-align: center; transition: all 0.5s ease; }
+        .btn-panel { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
+        .btn-css { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; background: #333; color: #fff; border-left: 3px solid #777; transition: 0.2s; }
         .btn-css:hover { background: #444; transform: translateY(-2px); }
-        
         .btn-color { border-color: #e74c3c; }
         .btn-shape { border-color: #f1c40f; }
         .btn-size  { border-color: #2ecc71; }
         .btn-reset { border-color: #fff; }
-
-        .code-view { 
-            font-family: 'Courier New', monospace; background: #111; color: #89c4f4; 
-            padding: 15px; border-radius: 5px; margin-bottom: 15px; 
-            border-left: 3px solid #264de4; text-align: left;
-        }
-
-        /* --- PARTE 3: QUIZ --- */
+        .code-view { font-family: 'Courier New', monospace; background: #111; color: #89c4f4; padding: 15px; border-radius: 5px; margin-bottom: 15px; border-left: 3px solid #264de4; text-align: left; }
         .quiz-section { background: #2a2a2a; padding: 25px; border-radius: 10px; border: 1px solid #555; text-align: left; margin-top: 30px; }
         select { width: 100%; padding: 10px; margin-top: 5px; background: #111; color: white; border: 1px solid #444; border-radius: 5px; }
         label { margin-top: 20px; display: block; color: #fff; font-weight: bold; }
-
-        .bottone-magico {
-            background-color: #264de4; color: white; padding: 15px 30px; border: none; 
-            cursor: pointer; border-radius: 5px; font-size: 1rem; margin-top: 20px; width: 100%;
-            transition: 0.3s; font-weight: bold;
-        }
+        .bottone-magico { background-color: #264de4; color: white; padding: 15px 30px; border: none; cursor: pointer; border-radius: 5px; font-size: 1rem; margin-top: 20px; width: 100%; transition: 0.3s; font-weight: bold; }
         .bottone-magico:hover { background-color: #1a36a0; }
-
-        /* --- SEZIONE SEGRETA (USCITA) --- */
-        #secret-reward {
-            display: none; 
-            margin-top: 30px; padding: 20px; 
-            background-color: #1b5e20; 
-            border: 2px solid #4caf50;
-        }
+        #secret-reward { display: none; margin-top: 30px; padding: 20px; background-color: #1b5e20; border: 2px solid #4caf50; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎨 CSS (Cascading Style Sheets)</h1>
-        <p>Il CSS è la lingua usata per colorare, impaginare e dare "vita" alla struttura creata dall'HTML.</p>
+        <p>Il CSS è la lingua usata per **definire l'aspetto, il colore e l'impaginazione** della struttura creata dall'HTML. È il responsabile dello **stile** della pagina web.</p>
 
         <h2>Storia e Filosofia</h2>
         <div class="history-box">
@@ -112,8 +42,24 @@
             <p>Prima del CSS, ogni pagina web doveva definire il proprio stile (font, colori) usando gli attributi direttamente nei tag HTML. Il CSS ha permesso di separare completamente la presentazione (lo stile) dalla struttura (l'HTML), rendendo il web molto più efficiente e leggero.</p>
         </div>
 
-        <h2>Il Camaleonte CSS (Prova tu!)</h2>
+        <h2>Sintassi CSS di Base</h2>
+        <p>Il CSS funziona selezionando elementi HTML e applicando loro proprietà (es. `color: blue;`). I tre selettori principali sono:</p>
+        
+        <ul style="text-align: left; margin-left: 20px; color: #fff;">
+            <li>Tag HTML (es. `p` per i paragrafi)</li>
+            <li>Classe: Si seleziona un gruppo di elementi tramite un punto (es. **`.nome-classe`**).</li>
+            <li>ID: Si seleziona un singolo elemento tramite l'hash (es. `#nome-id`).</li>
+        </ul>
 
+        <p>Inoltre, le proprietà che definiscono lo spazio di un elemento sono:</p>
+        <ul style="text-align: left; margin-left: 20px; color: #fff;">
+            <li>`padding`: Controlla lo spazio **interno** dell'elemento (tra contenuto e bordo).</li>
+            <li>`margin`: Controlla lo spazio **esterno** dell'elemento (tra l'elemento e gli altri elementi).</li>
+        </ul>
+        
+        <hr style="border-color: #333; margin: 30px 0;">
+        
+        <h2>Il Camaleonte CSS (Prova tu!)</h2>
         <div id="camaleonte">
             Sono un Box 
         </div>
@@ -168,16 +114,12 @@
     </div>
     
     <script>
+        // ... (Script invariato) ...
         const camaleonte = document.getElementById('camaleonte');
         const codeDisplay = document.getElementById('css-code-display');
-        
-        // Funzione interattiva per cambiare lo stile del camaleonte
         function changeCSS(azione) {
-            // Ripulisce gli stili inline precedenti (per il reset)
             camaleonte.style = ""; 
-            
             let cssCode = "";
-            
             if (azione === 'colore') {
                 camaleonte.style.backgroundColor = '#e74c3c';
                 camaleonte.style.color = 'yellow';
@@ -187,7 +129,7 @@
     color: yellow;
 }`;
             } else if (azione === 'forma') {
-                camaleonte.style.borderRadius = '50%'; // Forma rotonda
+                camaleonte.style.borderRadius = '50%';
                 camaleonte.style.transform = 'rotate(10deg)';
                 cssCode = `
 #camaleonte {
@@ -211,29 +153,23 @@
                 camaleonte.style.transform = 'none';
                 cssCode = `/* CSS resettato ai valori iniziali */`;
             }
-            
             codeDisplay.innerText = cssCode.trim();
         }
-        
-        // Funzione per controllare il quiz
         function checkQuiz() {
             const q1 = document.getElementById('q1').value;
             const q2 = document.getElementById('q2').value;
             const q3 = document.getElementById('q3').value;
-            
             const isCorrect = (q1 === 'corretta' && q2 === 'corretta' && q3 === 'corretta');
             const reward = document.getElementById('secret-reward');
-
             if (isCorrect) {
                 reward.style.display = 'block';
                 alert("Complimenti! Quiz superato.");
             } else {
                 reward.style.display = 'none';
-                // Qui potremmo anche dare un feedback per ogni risposta sbagliata specifica,
-                // ma l'alert generico è accettabile per una verifica rapida.
                 alert("Attenzione: una o più risposte sono errate. Rivedi la sezione.");
             }
         }
     </script>
 </body>
 </html>
+
