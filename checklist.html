@@ -37,17 +37,23 @@
             padding: 8px 0;
             border-bottom: 1px solid #333;
             font-size: 1.05rem;
-            /* Aggiunto stile per gli allegati */
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
         }
-        .attachment-item { 
-            color: #ce9178; 
-            font-style: italic;
-        }
 
         ul.file-tree li:last-child { border-bottom: none; }
+
+        /* Stile specifico per gli elementi allegati (solo testo e link) */
+        .attachment-item {
+            padding: 4px 0;
+            border-bottom: none;
+            font-size: 1rem;
+            color: #b5cea8; /* Verde più tenue per allegati */
+        }
+        .attachment-item span:first-child {
+            margin-right: 15px;
+        }
 
         /* Link principali (Titoli file) */
         a { text-decoration: none; transition: 0.2s; }
@@ -69,15 +75,17 @@
         /* Link PDF */
         a.pdf-link { color: #ce9178; } /* Arancione tenue */
 
-        /* Messaggio didattico */
+        /* Messaggio didattico di attenzione */
         .didactic-note {
-            background: #372a0f; /* Sfondo giallo scuro */
+            background: #372a0f; 
             border: 1px solid #ffcc00;
             padding: 15px;
-            margin-top: 30px;
+            margin-bottom: 20px;
             border-radius: 8px;
             color: #ffcc00;
+            font-size: 0.95rem;
         }
+        .didactic-note p { margin: 0; }
 
 
         /* --- STILE MODALE (Finestra Codice) --- */
@@ -131,6 +139,11 @@
 <div class="container">
     <h1>📂 Mappa del Progetto Didattico</h1>
     <p>Benvenuto nella struttura di navigazione. Da qui puoi visitare le pagine o studiare il loro codice sorgente.</p>
+    
+    <div class="didactic-note">
+        <p style="font-weight: bold;">⚠️ REGOLA DELLA REPOSITORY:</p>
+        <p>Tutti gli allegati (Immagini e PDF) **DEVONO** essere presenti nella stessa cartella dei file HTML per funzionare correttamente.</p>
+    </div>
 
     <div class="file-list-container">
         
@@ -181,7 +194,13 @@
         <h3>🔹 Lezioni ML (Python)</h3>
         <ul class="file-tree">
             <li>📄 <a href="lezione1.html" class="main-link">Lezione 1 (Concetti)</a> <a href="#" onclick="mostraCodice('lezione1.html'); return false;" class="code-link">👁️ Vedi Codice</a></li>
+            <li class="attachment-item">
+                <span>└─ 🖼️ Allegato: <a href="ai_gerarchia.png" class="pdf-link" target="_blank">ai_gerarchia.png</a></span>
+                <span>(Diagramma AI)</span>
+            </li>
+
             <li>📄 <a href="lezione2.html" class="main-link">Lezione 2 (Regressione)</a> <a href="#" onclick="mostraCodice('lezione2.html'); return false;" class="code-link">👁️ Vedi Codice</a></li>
+            
             <li>📄 <a href="lezione3.html" class="main-link">Lezione 3 (Grafici)</a> <a href="#" onclick="mostraCodice('lezione3.html'); return false;" class="code-link">👁️ Vedi Codice</a></li>
             <li>📄 <a href="lezione4.html" class="main-link">Lezione 4 (Errore)</a> <a href="#" onclick="mostraCodice('lezione4.html'); return false;" class="code-link">👁️ Vedi Codice</a></li>
             <li>📄 <a href="lezione5.html" class="main-link">Lezione 5 (Sviluppo)</a> <a href="#" onclick="mostraCodice('lezione5.html'); return false;" class="code-link">👁️ Vedi Codice</a></li>
@@ -190,47 +209,39 @@
             <li>🎉 <a href="lezione8.html" class="main-link">Lezione 8 (Finale)</a> <a href="#" onclick="mostraCodice('lezione8.html'); return false;" class="code-link">👁️ Vedi Codice</a></li>
         </ul>
 
-        <h3>📎 Allegati e Risorse (Non visualizzabili nel modale)</h3>
-        <div class="didactic-note">
-            <p style="margin: 0; font-weight: bold;">⚠️ IMPORTANTE: REPOSITORY</p>
-            <p style="margin-top: 5px; font-size: 0.95rem;">Questi allegati devono essere caricati nella stessa cartella (Repository) per garantire il corretto funzionamento dei link e la visualizzazione delle immagini. Non è possibile visualizzarne il contenuto qui.</p>
-        </div>
+        <h3>📎 Documentazione (File PDF)</h3>
         <ul class="file-tree">
             <li class="attachment-item">
-                <span>🖼️ <a href="ai_gerarchia.png" class="pdf-link" target="_blank">ai_gerarchia.png</a></span>
-                <span style="font-size: 0.9em;">(Diagramma Lezione 1)</span>
-            </li>
-            <li class="attachment-item">
                 <span>📄 <a href="Python_1.pdf" class="pdf-link" target="_blank">Python_1.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.1)</span>
+                <span>(L.1)</span>
             </li>
             <li class="attachment-item">
                 <span>📄 <a href="Python_2.pdf" class="pdf-link" target="_blank">Python_2.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.2)</span>
+                <span>(L.2)</span>
             </li>
             <li class="attachment-item">
                 <span>📄 <a href="Python_3.pdf" class="pdf-link" target="_blank">Python_3.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.3)</span>
+                <span>(L.3)</span>
             </li>
             <li class="attachment-item">
                 <span>📄 <a href="Python_4.pdf" class="pdf-link" target="_blank">Python_4.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.4)</span>
+                <span>(L.4)</span>
             </li>
             <li class="attachment-item">
                 <span>📄 <a href="Python_5.pdf" class="pdf-link" target="_blank">Python_5.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.5)</span>
+                <span>(L.5)</span>
             </li>
             <li class="attachment-item">
                 <span>📄 <a href="Python_6.pdf" class="pdf-link" target="_blank">Python_6.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.6)</span>
+                <span>(L.6)</span>
             </li>
             <li class="attachment-item">
                 <span>📄 <a href="Python_7.pdf" class="pdf-link" target="_blank">Python_7.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.7)</span>
+                <span>(L.7)</span>
             </li>
             <li class="attachment-item">
                 <span>📄 <a href="Python_8.pdf" class="pdf-link" target="_blank">Python_8.pdf</a></span>
-                <span style="font-size: 0.9em;">(Documentazione L.8)</span>
+                <span>(L.8)</span>
             </li>
         </ul>
             </div>
@@ -250,9 +261,9 @@
 
 <script>
     function mostraCodice(nomeFile) {
-        // Verifica se il file è un allegato (PDF/Immagine) che non possiamo mostrare nel modale
-        if (nomeFile.includes('.pdf') || nomeFile.includes('.png') || nomeFile.includes('.jpg')) {
-            alert("Attenzione: i file allegati (immagini e PDF) non sono codici HTML. Non possono essere visualizzati nella finestra sorgente. Sono risorse esterne da scaricare.");
+        // Aggiunta la guardia per i file allegati
+        if (nomeFile.endsWith('.pdf') || nomeFile.endsWith('.png') || nomeFile.endsWith('.jpg')) {
+            alert("Attenzione: i file allegati (immagini e PDF) non sono codice sorgente HTML. Non possono essere visualizzati in questa finestra.");
             return; 
         }
 
