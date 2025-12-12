@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mappa del Progetto - Laboratorio</title>
     <style>
-        /* --- STILE GENERALE (Dark Mode Professionale) --- */
+        /* --- STILE GENERALE DARK (Tipo VS Code) --- */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #1e1e1e;
@@ -15,81 +15,107 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
-            background-color: #252526;
-            padding: 40px;
-            border-radius: 10px;
+            background-color: #252526; /* Grigio leggermente più chiaro */
+            padding: 30px;
+            border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border-left: 5px solid #007acc; /* Blu VS Code */
+            border-left: 5px solid #007acc; /* Accento Blu */
         }
 
-        h1 { color: #fff; border-bottom: 1px solid #555; padding-bottom: 15px; }
-        h3 { color: #9cdcfe; margin-top: 30px; }
+        h1 { color: #fff; border-bottom: 1px solid #3e3e42; padding-bottom: 15px; margin-bottom: 20px; }
+        h3 { color: #569cd6; margin-top: 30px; border-bottom: 1px solid #3e3e42; padding-bottom: 5px; }
         
-        /* --- STILE DELLA LISTA (Albero) --- */
+        /* --- LISTA ALBERO --- */
         ul.file-tree {
             list-style-type: none;
-            padding-left: 10px;
+            padding: 0;
+            margin: 0;
         }
 
+        /* Ogni riga della lista */
         ul.file-tree li {
-            padding: 10px 5px; /* Spaziatura aumentata per leggibilità */
-            border-bottom: 1px solid #555; /* COLORE SCHIARITO PER VISIBILITÀ */
-            font-size: 1.05rem;
-            display: flex;
-            justify-content: space-between;
+            display: flex;               /* FONDAMENTALE: Allinea sinistra/destra */
+            justify-content: space-between; 
             align-items: center;
+            padding: 8px 10px;
+            border-bottom: 1px solid #333; /* Linea di separazione sottile */
+            transition: background 0.2s;
         }
 
-        ul.file-tree li:last-child { border-bottom: none; }
-
-        /* Stile speciale per i sotto-elementi (Allegati) */
-        .sub-item {
-            color: #b5cea8; /* Verde tenue differente dal testo principale */
-            font-style: italic;
-            font-size: 0.95rem;
-            padding-left: 30px !important; /* Rientro visivo */
-            border-bottom: 1px solid #444 !important; /* Linea più sottile */
+        ul.file-tree li:hover {
+            background-color: #2a2d2e; /* Effetto hover leggero */
         }
 
-        /* Link principali */
-        a { text-decoration: none; transition: 0.2s; }
-        a.main-link { color: #4ec9b0; font-weight: bold; }
-        a.main-link:hover { color: #fff; text-decoration: underline; }
+        /* Stile per i FILE PRINCIPALI (Lezioni) */
+        .file-main {
+            color: #4ec9b0; /* Verde acqua tipico delle classi */
+            font-weight: bold;
+            font-size: 1.05rem;
+            text-decoration: none;
+        }
+        .file-main:hover { text-decoration: underline; color: #fff; }
 
-        /* Link PDF/IMG */
-        a.asset-link { color: #ce9178; }
-        a.asset-link:hover { text-decoration: underline; color: #fff; }
+        /* Stile per i RAMI (Allegati) */
+        .tree-branch {
+            color: #666;
+            font-family: monospace;
+            margin-right: 8px;
+            margin-left: 20px; /* Rientro del ramo */
+        }
 
-        /* Link "Vedi Codice" */
-        a.code-link {
-            color: #569cd6;
-            font-size: 0.9rem;
-            margin-left: 10px;
-            background: #1e1e1e;
-            padding: 2px 8px;
+        .file-asset {
+            color: #ce9178; /* Arancione tipico delle stringhe/file */
+            text-decoration: none;
+        }
+        .file-asset:hover { text-decoration: underline; color: #fff; }
+
+        /* --- PULSANTE "VEDI CODICE" (Destra) --- */
+        .btn-code {
+            display: inline-block;
+            border: 1px solid #3e3e42;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 3px 10px;
             border-radius: 4px;
-            border: 1px solid #555;
+            font-size: 0.85rem;
+            text-decoration: none;
             cursor: pointer;
+            min-width: 100px;
+            text-align: center;
         }
-        a.code-link:hover { background: #007acc; color: white; border-color: #007acc; }
+        .btn-code:hover {
+            border-color: #007acc;
+            background-color: #007acc;
+            color: white;
+        }
+
+        /* --- ETICHETTA "[Allegato Repository]" (Destra) --- */
+        .label-repo {
+            color: #6a9955; /* Verde commento */
+            font-size: 0.85rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
 
         /* Messaggio didattico */
         .didactic-note {
             background: #372a0f; 
             border: 1px solid #ffcc00;
             padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 8px;
+            margin-bottom: 25px;
+            border-radius: 5px;
             color: #ffcc00;
+            font-size: 0.95rem;
         }
 
         /* --- MODALE --- */
-        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); }
-        .modal-content { background-color: #1e1e1e; margin: 5vh auto; width: 85%; height: 85%; border-radius: 8px; border: 1px solid #444; display: flex; flex-direction: column; }
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(2px); }
+        .modal-content { background-color: #1e1e1e; margin: 5vh auto; width: 85%; height: 85%; border-radius: 8px; border: 1px solid #444; display: flex; flex-direction: column; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
         .modal-header { padding: 15px 20px; background: #2d2d2d; border-bottom: 1px solid #3e3e42; display: flex; justify-content: space-between; align-items: center; }
-        .close-btn { color: #aaa; font-size: 28px; cursor: pointer; font-weight: bold; }
+        .close-btn { color: #aaa; font-size: 28px; cursor: pointer; }
+        .close-btn:hover { color: white; }
         .code-container { padding: 20px; overflow: auto; flex-grow: 1; background-color: #1e1e1e; }
         pre { margin: 0; font-family: 'Consolas', 'Monaco', monospace; color: #d4d4d4; font-size: 14px; }
     </style>
@@ -98,87 +124,91 @@
 
 <div class="container">
     <h1>📂 Mappa del Progetto Didattico</h1>
-    <p>Benvenuto nella struttura di navigazione. Da qui puoi visitare le pagine o studiare il loro codice sorgente.</p>
-
+    
     <div class="didactic-note">
-        <strong>⚠️ REGOLA REPOSITORY:</strong> Le immagini (come <code>ai_gerarchia.png</code>) e i PDF devono essere nella stessa cartella dei file HTML per funzionare.
+        <strong>⚠️ REGOLA REPOSITORY:</strong> Affinché le immagini e i PDF funzionino, devono trovarsi nella <strong>stessa cartella</strong> dei file HTML (nella Repository).
     </div>
 
-    <div class="file-list-container">
-        
-        <h3>🔹 Sistema Principale</h3>
-        <ul class="file-tree">
-            <li>
-                <span>🏠 <a href="index.html" class="main-link">Home Page (Portale)</a></span>
-                <a onclick="mostraCodice('index.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-            <li>
-                <span>🎓 <a href="Python_Sommario_0.html" class="main-link">Dashboard Corso</a></span>
-                <a onclick="mostraCodice('Python_Sommario_0.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-            <li>
-                <span>📋 <a href="checklist.html" class="main-link">Checklist (Questa pagina)</a></span>
-                <a onclick="mostraCodice('checklist.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-        </ul>
+    <h3>🔹 Sistema Principale</h3>
+    <ul class="file-tree">
+        <li>
+            <span>🏠 <a href="index.html" class="file-main">index.html</a> (Home)</span>
+            <a onclick="mostraCodice('index.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span>🎓 <a href="Python_Sommario_0.html" class="file-main">Python_Sommario_0.html</a></span>
+            <a onclick="mostraCodice('Python_Sommario_0.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span>📋 <a href="checklist.html" class="file-main">checklist.html</a> (Questa pagina)</span>
+            <a onclick="mostraCodice('checklist.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+    </ul>
 
-        <h3>🔹 Laboratorio Web</h3>
-        <ul class="file-tree">
-            <li>
-                <span>🦴 <a href="spiegazione_html.html" class="main-link" style="color: #e34c26;">Lezione HTML</a></span>
-                <a onclick="mostraCodice('spiegazione_html.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-            <li>
-                <span>🎨 <a href="spiegazione_css.html" class="main-link" style="color: #264de4;">Lezione CSS</a></span>
-                <a onclick="mostraCodice('spiegazione_css.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-            <li>
-                <span>⚡ <a href="spiegazione_js.html" class="main-link" style="color: #f7df1e;">Lezione JS</a></span>
-                <a onclick="mostraCodice('spiegazione_js.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-        </ul>
+    <h3>🔹 Lezioni ML (Python)</h3>
+    <ul class="file-tree">
+        <li>
+            <span>📄 <a href="lezione1.html" class="file-main">Lezione 1 (Concetti)</a></span>
+            <a onclick="mostraCodice('lezione1.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span><span class="tree-branch">└──</span> 🖼️ <a href="ai_gerarchia.png" class="file-asset" target="_blank">ai_gerarchia.png</a> (Immagine)</span>
+            <span class="label-repo">[Allegato Repository]</span>
+        </li>
+        <li>
+            <span><span class="tree-branch">└──</span> 📄 <a href="Python_1.pdf" class="file-asset" target="_blank">Python_1.pdf</a> (Documentazione)</span>
+            <span class="label-repo">[Allegato Repository]</span>
+        </li>
 
-        <h3>🔹 Lezioni ML (Python)</h3>
-        <ul class="file-tree">
-            <li>
-                <span>📄 <a href="lezione1.html" class="main-link">Lezione 1 (Concetti)</a></span>
-                <a onclick="mostraCodice('lezione1.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-            <li class="sub-item">
-                <span>└── 🖼️ <a href="ai_gerarchia.png" class="asset-link" target="_blank">ai_gerarchia.png</a> (Immagine)</span>
-                <span style="font-size: 0.8em; opacity: 0.7;">[Allegato Repository]</span>
-            </li>
-            <li class="sub-item">
-                <span>└── 📄 <a href="Python_1.pdf" class="asset-link" target="_blank">Python_1.pdf</a> (Documentazione)</span>
-                <span style="font-size: 0.8em; opacity: 0.7;">[Allegato Repository]</span>
-            </li>
+        <li>
+            <span>📄 <a href="lezione2.html" class="file-main">Lezione 2 (Regressione)</a></span>
+            <a onclick="mostraCodice('lezione2.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span><span class="tree-branch">└──</span> 📄 <a href="Python_2.pdf" class="file-asset" target="_blank">Python_2.pdf</a></span>
+            <span class="label-repo">[Allegato]</span>
+        </li>
 
-            <li>
-                <span>📄 <a href="lezione2.html" class="main-link">Lezione 2 (Regressione)</a></span>
-                <a onclick="mostraCodice('lezione2.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-            <li class="sub-item">
-                <span>└── 📄 <a href="Python_2.pdf" class="asset-link" target="_blank">Python_2.pdf</a></span>
-                <span style="font-size: 0.8em; opacity: 0.7;">[Allegato]</span>
-            </li>
+        <li>
+            <span>📄 <a href="lezione3.html" class="file-main">Lezione 3 (Grafici)</a></span>
+            <a onclick="mostraCodice('lezione3.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span><span class="tree-branch">└──</span> 🖼️ <a href="grafico_esempio.png" class="file-asset" target="_blank">grafico_esempio.png</a></span>
+            <span class="label-repo">[Allegato]</span>
+        </li>
+        <li>
+            <span><span class="tree-branch">└──</span> 📄 <a href="Python_3.pdf" class="file-asset" target="_blank">Python_3.pdf</a></span>
+            <span class="label-repo">[Allegato]</span>
+        </li>
 
-            <li>
-                <span>📄 <a href="lezione3.html" class="main-link">Lezione 3 (Grafici)</a></span>
-                <a onclick="mostraCodice('lezione3.html')" class="code-link">👁️ Vedi Codice</a>
-            </li>
-             <li class="sub-item">
-                <span>└── 📄 <a href="Python_3.pdf" class="asset-link" target="_blank">Python_3.pdf</a></span>
-                <span style="font-size: 0.8em; opacity: 0.7;">[Allegato]</span>
-            </li>
-            
-            <li><span>📄 <a href="lezione4.html" class="main-link">Lezione 4 (Errore)</a></span> <a onclick="mostraCodice('lezione4.html')" class="code-link">👁️</a></li>
-            <li><span>📄 <a href="lezione5.html" class="main-link">Lezione 5 (Sviluppo)</a></span> <a onclick="mostraCodice('lezione5.html')" class="code-link">👁️</a></li>
-            <li><span>📄 <a href="lezione6.html" class="main-link">Lezione 6 (Diodo)</a></span> <a onclick="mostraCodice('lezione6.html')" class="code-link">👁️</a></li>
-            <li><span>📄 <a href="lezione7.html" class="main-link">Lezione 7 (Ibrido)</a></span> <a onclick="mostraCodice('lezione7.html')" class="code-link">👁️</a></li>
-            <li><span>🎉 <a href="lezione8.html" class="main-link">Lezione 8 (Finale)</a></span> <a onclick="mostraCodice('lezione8.html')" class="code-link">👁️</a></li>
-        </ul>
+        <li>
+            <span>📄 <a href="lezione4.html" class="file-main">Lezione 4 (Errore)</a></span>
+            <a onclick="mostraCodice('lezione4.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span><span class="tree-branch">└──</span> 📄 <a href="Python_4.pdf" class="file-asset" target="_blank">Python_4.pdf</a></span>
+            <span class="label-repo">[Allegato]</span>
+        </li>
 
-    </div>
+        <li>
+            <span>📄 <a href="lezione5.html" class="file-main">Lezione 5 (Sviluppo)</a></span>
+            <a onclick="mostraCodice('lezione5.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span>📄 <a href="lezione6.html" class="file-main">Lezione 6 (Diodo)</a></span>
+            <a onclick="mostraCodice('lezione6.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span>📄 <a href="lezione7.html" class="file-main">Lezione 7 (Ibrido)</a></span>
+            <a onclick="mostraCodice('lezione7.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+        <li>
+            <span>🎉 <a href="lezione8.html" class="file-main">Lezione 8 (Finale)</a></span>
+            <a onclick="mostraCodice('lezione8.html')" class="btn-code">👁️ Vedi Codice</a>
+        </li>
+    </ul>
+
 </div>
 
 <div id="codeModal" class="modal">
@@ -195,6 +225,10 @@
 
 <script>
     function mostraCodice(nomeFile) {
+        if (nomeFile.toLowerCase().match(/\.(pdf|png|jpe?g)$/)) {
+            alert("I file allegati non hanno codice HTML visibile.");
+            return; 
+        }
         const modal = document.getElementById('codeModal');
         const codeDisplay = document.getElementById('code-display');
         const titleDisplay = document.getElementById('modal-title');
@@ -205,7 +239,7 @@
 
         fetch(nomeFile)
             .then(response => {
-                if (!response.ok) throw new Error("File non trovato (Controlla il nome!)");
+                if (!response.ok) throw new Error("File non trovato nella cartella!");
                 return response.text();
             })
             .then(testo => {
