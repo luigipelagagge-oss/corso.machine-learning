@@ -242,9 +242,8 @@
 
 <script>
     function mostraCodice(nomeFile) {
-        // Guardia per i file allegati
         if (nomeFile.toLowerCase().match(/\.(pdf|png|jpe?g)$/)) {
-            alert("I file allegati (immagini/PDF) non sono codice HTML visualizzabile.");
+            alert("I file allegati non hanno codice HTML visibile.");
             return; 
         }
         const modal = document.getElementById('codeModal');
