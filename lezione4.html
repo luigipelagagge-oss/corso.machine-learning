@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Lezione 4: Teoria dell'Errore - MSE e Overfitting</title>
     <style>
-        /* --- CSS BASE (Standardizzato al Blu) --- */
+        /* --- CSS STANDARD BLU --- */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -15,7 +15,7 @@
         }
         
         .header {
-            background: linear-gradient(135deg, #3498db, #2980b9); /* Standard Blu */
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             padding: 30px;
             border-radius: 10px;
@@ -23,10 +23,7 @@
             margin-bottom: 30px;
         }
         
-        h1 {
-            color: white;
-            margin-bottom: 10px;
-        }
+        h1 { margin-bottom: 10px; color: white; }
         
         .nav {
             background: white;
@@ -59,6 +56,7 @@
             margin-top: 30px;
         }
         
+        /* Box colorati */
         .box {
             background: #ecf0f1;
             padding: 20px;
@@ -82,6 +80,7 @@
             border-left-color: #3498db;
         }
         
+        /* Codice */
         .code {
             background: #2c3e50;
             color: #ecf0f1;
@@ -92,34 +91,7 @@
             margin: 15px 0;
         }
         
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-        
-        .step {
-            background: #e8f4fc;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            border-left: 3px solid #3498db;
-        }
-        
-        .step-number {
-            display: inline-block;
-            background: #3498db;
-            color: white;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
+        /* Formula */
         .formula {
             text-align: center;
             font-size: 1.5em;
@@ -131,7 +103,7 @@
             border: 2px solid #3498db;
         }
         
-        /* --- CARD VISUALI PER CONFRONTO ERRORI --- */
+        /* Card Confronto */
         .comparison {
             display: flex;
             justify-content: space-around;
@@ -150,13 +122,8 @@
             text-align: center;
         }
         
-        .model-card.good {
-            border-top: 4px solid #28a745; /* Verde per buono */
-        }
-        
-        .model-card.bad {
-            border-top: 4px solid #e74c3c; /* Rosso per errore */
-        }
+        .model-card.good { border-top: 4px solid #28a745; }
+        .model-card.bad { border-top: 4px solid #e74c3c; }
         
         .error-visual {
             text-align: center;
@@ -168,7 +135,7 @@
             font-weight: bold;
         }
         
-        /* --- STILI QUIZ --- */
+        /* Quiz */
         .quiz-container {
             padding: 25px;
             background: #f0f8ff;
@@ -187,10 +154,7 @@
             margin-top: 20px;
             transition: background 0.3s;
         }
-
-        .quiz-button:hover {
-            background: #2980b9;
-        }
+        .quiz-button:hover { background: #2980b9; }
 
         .reward {
             margin-top: 20px; 
@@ -198,6 +162,13 @@
             background: #d5f4e6; 
             border-radius: 5px; 
             color: #2c3e50;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -277,11 +248,11 @@
         <div class="code">
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error  # <--- Importiamo lo "strumento di misura" dell'errore
+from sklearn.metrics import mean_squared_error  # Importiamo lo strumento di misura dell'errore
 
 # Misure raccolte in laboratorio (Input: Corrente, Output: Tensione)
 X = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])
-y_true = np.array([1.1, 1.9, 3.2, 3.8, 5.1])  # Notate che non sono perfetti (rumore)
+y_true = np.array([1.1, 1.9, 3.2, 3.8, 5.1])  # Dati con rumore
         </div>
         
         <div class="step">
@@ -297,7 +268,6 @@ y_bad = X * 1.5
 
 # --- TENTATIVO AI (Machine Learning) ---
 # Chiediamo alla classe LinearRegression di trovare la retta ottima
-# La funzione .fit() esegue migliaia di calcoli per minimizzare l'errore
 modello = LinearRegression().fit(X, y_true)
 y_ai = modello.predict(X)
         </div>
@@ -350,7 +320,7 @@ print(f"Il 'Voto' al modello AI (Errore): {errore_ai:.4f}")
                 <div style="font-size: 2em;">🌀</div>
                 <p><strong>MSE sui dati di training:</strong> ≈ 0.0</p>
                 <p><strong>Problema:</strong> Modella il rumore, non la legge fisica</p>
-                <p><em>Come un studente che impara a memoria senza capire</em></p>
+                <p><em>Come uno studente che impara a memoria senza capire</em></p>
             </div>
             
             <div class="model-card good">
@@ -358,7 +328,7 @@ print(f"Il 'Voto' al modello AI (Errore): {errore_ai:.4f}")
                 <div style="font-size: 2em;">📈</div>
                 <p><strong>MSE sui dati di training:</strong> ≈ 0.02</p>
                 <p><strong>Vantaggio:</strong> Cattura la tendenza generale</p>
-                <p><em>Come un studente che capisce il concetto</em></p>
+                <p><em>Come uno studente che capisce il concetto</em></p>
             </div>
         </div>
         
@@ -387,14 +357,15 @@ print(f"Il 'Voto' al modello AI (Errore): {errore_ai:.4f}")
                 <p><a href="lezione5.html" style="color: #2ecc71; font-weight: bold;">➡️ Vai alla Lezione 5: Sviluppo Software</a></p>
             </div>
         </div>
+        
         <h2>📋 Concetti Chiave da Ricordare</h2>
         <div class="code">
 # RICORDA QUESTI CONCETTI:
-1. MSE = media degli errori al quadrato (la "pagella" del modello)
-2. Obiettivo ML = minimizzare questo MSE
-3. Overfitting = modello troppo complesso che impara il rumore
-4. Sottodattamento = modello troppo semplice
-5. Modello ottimo = bilancia complessità e accuratezza
+# 1. MSE = media degli errori al quadrato (la "pagella" del modello)
+# 2. Obiettivo ML = minimizzare questo MSE
+# 3. Overfitting = modello troppo complesso che impara il rumore
+# 4. Sottodattamento = modello troppo semplice
+# 5. Modello ottimo = bilancia complessità e accuratezza
         </div>
     </div>
     
