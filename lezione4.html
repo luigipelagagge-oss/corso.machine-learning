@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Lezione 4: Teoria dell'Errore - MSE e Overfitting</title>
     <style>
-        /* --- STILE UNIFICATO (GEMELLO DI LEZIONE 1-2-3) --- */
+        /* --- STILE ROSSO (Distintivo per Lezione 4) --- */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -15,7 +15,7 @@
         }
         
         .header {
-            background: linear-gradient(135deg, #3498db, #2980b9); /* IL BLU STANDARD */
+            background: linear-gradient(135deg, #e74c3c, #c0392b); /* Rosso Errore */
             color: white;
             padding: 30px;
             border-radius: 10px;
@@ -23,10 +23,7 @@
             margin-bottom: 30px;
         }
         
-        h1 {
-            color: white;
-            margin-bottom: 10px;
-        }
+        h1 { margin-bottom: 10px; color: white; }
         
         .nav {
             background: white;
@@ -40,16 +37,14 @@
             display: inline-block;
             margin: 0 10px;
             padding: 10px 20px;
-            background: #3498db;
+            background: #e74c3c; /* Bottone Rosso */
             color: white;
             text-decoration: none;
             border-radius: 5px;
             transition: background 0.3s;
         }
         
-        .nav a:hover {
-            background: #2980b9;
-        }
+        .nav a:hover { background: #c0392b; }
         
         .content {
             background: white;
@@ -59,17 +54,17 @@
         
         h2 {
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid #e74c3c; /* Sottolineatura Rossa */
             padding-bottom: 10px;
             margin-top: 30px;
         }
         
-        /* BOX STANDARD */
+        /* BOX VARIATI */
         .box {
-            background: #ecf0f1;
+            background: #fdedec; /* Sfondo rossastro */
             padding: 20px;
             margin: 20px 0;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #e74c3c;
             border-radius: 5px;
         }
         
@@ -83,7 +78,12 @@
             border-left-color: #28a745;
         }
         
-        /* CODICE */
+        .box.info {
+            background: #d6eaf8;
+            border-left-color: #3498db;
+        }
+        
+        /* CODICE (Standard Dark) */
         .code {
             background: #2c3e50;
             color: #ecf0f1;
@@ -103,20 +103,21 @@
             background: #f8f9fa;
             border-radius: 8px;
             font-family: 'Cambria', 'Times New Roman', serif;
-            border: 1px solid #ddd;
+            border: 2px solid #e74c3c; /* Bordo Rosso */
         }
         
+        /* STEP */
         .step {
-            background: #e8f4fc;
+            background: #fdedec;
             padding: 15px;
             margin: 15px 0;
             border-radius: 5px;
-            border-left: 3px solid #3498db;
+            border-left: 3px solid #e74c3c;
         }
         
         .step-number {
             display: inline-block;
-            background: #3498db;
+            background: #e74c3c;
             color: white;
             width: 30px;
             height: 30px;
@@ -127,7 +128,7 @@
             font-weight: bold;
         }
 
-        /* CARD CONFRONTO (Specifico per questa lezione ma coerente) */
+        /* CONFRONTO */
         .comparison {
             display: flex;
             justify-content: space-around;
@@ -153,14 +154,14 @@
         /* QUIZ */
         .quiz-container {
             padding: 25px;
-            background: #f0f8ff;
-            border: 2px solid #3498db;
+            background: #fdedec; /* Sfondo in tema */
+            border: 2px solid #e74c3c;
             border-radius: 8px;
             margin-top: 30px;
         }
 
         .quiz-button {
-            background: #3498db;
+            background: #e74c3c;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -169,7 +170,7 @@
             margin-top: 20px;
             transition: background 0.3s;
         }
-        .quiz-button:hover { background: #2980b9; }
+        .quiz-button:hover { background: #c0392b; }
 
         .reward {
             margin-top: 20px; 
@@ -205,11 +206,10 @@
     
     <div class="content">
         <h2 id="introduzione">🎯 Introduzione</h2>
-        <p>Nelle lezioni precedenti, <code>LinearRegression</code> ci è sembrata quasi una magia: abbiamo inserito dati disordinati e abbiamo ottenuto una retta perfetta.</p>
+        <p>Nelle lezioni precedenti, <code>LinearRegression</code> ci è sembrata quasi una magia. Ma l'Intelligenza Artificiale non è magia, è <strong>matematica</strong>.</p>
         
         <div class="box warning">
-            <h3>⚠️ Ma l'Intelligenza Artificiale non è magia, è <strong>matematica</strong>.</h3>
-            <p>In questa lezione risponderemo alla domanda fondamentale:</p>
+            <h3>⚠️ La Domanda Fondamentale</h3>
             <p style="text-align: center; font-size: 1.2em;"><strong>"Come fa il computer a capire che una retta è migliore di un'altra?"</strong></p>
         </div>
         
@@ -228,25 +228,23 @@
         
         <div class="box">
             <h3>🧠 Per la macchina, il residuo è un segnale di allarme:</h3>
-            <p>Significa che la retta che ha tracciato <strong>non passa esattamente sopra il punto</strong>.</p>
-            <p>Ogni residuo è un <em>"rimprovero"</em> al modello: "Ti sei sbagliato di questa quantità!"</p>
+            <p>Significa che la retta che ha tracciato <strong>non passa esattamente sopra il punto</strong>. Ogni residuo è un <em>"rimprovero"</em> al modello.</p>
         </div>
         
         <h2 id="mse">📊 La Pagella della Macchina: MSE</h2>
-        <p>L'algoritmo non può guardare un solo punto, deve guardare <strong>l'insieme di tutti i punti sperimentali</strong>.</p>
+        <p>L'algoritmo non può guardare un solo punto, deve guardare l'insieme di tutti i punti sperimentali.</p>
         
         <div class="formula">
             MSE = <sup>1</sup>⁄<sub>N</sub> Σ (Errore)²
         </div>
         
-        <div class="box">
+        <div class="box info">
             <h3>🤔 Perché eleviamo al quadrato?</h3>
-            <p>Se facessimo una media semplice, gli errori positivi e negativi si annullerebbero (es. +5 e -5 darebbero 0).</p>
-            <p><strong>Elevando al quadrato:</strong> 5² = 25, (-5)² = 25. Tutti gli errori diventano positivi e si sommano. <strong>Più è alto questo numero, peggiore è la retta.</strong></p>
+            <p>Se facessimo una media semplice, errori positivi (+5) e negativi (-5) si annullerebbero a vicenda. Elevando al quadrato, tutti gli errori diventano positivi e si sommano. <strong>Più alto è questo numero, peggiore è la retta.</strong></p>
         </div>
         
         <h2 id="confronto">🥊 Laboratorio: Uomo vs Macchina</h2>
-        <p>Per capire davvero questo concetto, faremo una gara. Proveremo a indovinare la Resistenza (R) "a occhio" e calcoleremo il nostro MSE. Poi lasceremo fare a Python.</p>
+        <p>Facciamo una gara. Proveremo a indovinare la Resistenza (R) "a occhio" e calcoleremo il nostro MSE. Poi lasceremo fare a Python.</p>
         
         <div class="step">
             <span class="step-number">1</span>
@@ -256,27 +254,25 @@
         <div class="code">
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error  # <--- Importiamo lo "strumento di misura" dell'errore
+from sklearn.metrics import mean_squared_error  # Strumento di misura
 
-# Misure raccolte in laboratorio (Input: Corrente, Output: Tensione)
+# Misure raccolte in laboratorio
 X = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])
-y_true = np.array([1.1, 1.9, 3.2, 3.8, 5.1])  # Notate che non sono perfetti (rumore)
+y_true = np.array([1.1, 1.9, 3.2, 3.8, 5.1])  # Dati con rumore
         </div>
         
         <div class="step">
             <span class="step-number">2</span>
-            <strong>La Sfida: Intuizione Umana vs Ottimizzazione Matematica</strong>
+            <strong>La Sfida: Intuizione Umana vs Matematica</strong>
         </div>
         
         <div class="code">
 # --- TENTATIVO UMANO ---
-# Guardando i dati, ipotizziamo che la Resistenza sia 1.5 kOhm
-# Moltiplichiamo quindi tutti gli input per 1.5
+# Ipotizziamo che R sia 1.5 kOhm
 y_bad = X * 1.5
 
-# --- TENTATIVO AI (Machine Learning) ---
-# Chiediamo alla classe LinearRegression di trovare la retta ottima
-# La funzione .fit() esegue migliaia di calcoli per minimizzare l'errore
+# --- TENTATIVO AI ---
+# La funzione .fit() minimizza l'errore automaticamente
 modello = LinearRegression().fit(X, y_true)
 y_ai = modello.predict(X)
         </div>
@@ -287,31 +283,31 @@ y_ai = modello.predict(X)
         </div>
         
         <div class="code">
-# mean_squared_error confronta i dati VERI (y_true) con le nostre stime
+# Confrontiamo i risultati
 errore_umano = mean_squared_error(y_true, y_bad)
 errore_ai = mean_squared_error(y_true, y_ai)
 
-print(f"Il 'Voto' al modello Umano (Errore): {errore_umano:.4f}")
-print(f"Il 'Voto' al modello AI (Errore): {errore_ai:.4f}")
+print(f"Errore Umano: {errore_umano:.4f}")
+print(f"Errore AI: {errore_ai:.4f}")
         </div>
         
         <div class="comparison">
             <div class="model-card bad">
                 <h3>👤 Modello Umano</h3>
                 <div style="font-size: 3em; color: #e74c3c;">❌</div>
-                <p><strong>MSE:</strong> ≈ 2.0 (alto)</p>
+                <p><strong>MSE:</strong> ≈ 2.0 (Alto)</p>
                 <p>La retta passa lontano dai punti</p>
             </div>
             
             <div class="model-card good">
                 <h3>🤖 Modello AI</h3>
                 <div style="font-size: 3em; color: #28a745;">✅</div>
-                <p><strong>MSE:</strong> ≈ 0.02 (basso)</p>
+                <p><strong>MSE:</strong> ≈ 0.02 (Basso)</p>
                 <p>La retta taglia perfettamente la nuvola di punti</p>
             </div>
         </div>
         
-        <h2 id="overfitting">⚠️ Attenzione all'Overfitting (Imparare a Memoria)</h2>
+        <h2 id="overfitting">⚠️ Attenzione all'Overfitting</h2>
         
         <div class="box warning">
             <h3>🤔 Domanda Cruciale:</h3>
@@ -319,63 +315,55 @@ print(f"Il 'Voto' al modello AI (Errore): {errore_ai:.4f}")
         </div>
         
         <div class="comparison">
-            <div class="model-card bad">
+            <div class="model-card">
                 <h3>📈 Overfitting (Sbagliato!)</h3>
                 <div style="font-size: 2em;">🌀</div>
-                <p><strong>MSE sui dati di training:</strong> ≈ 0.0</p>
-                <p><strong>Problema:</strong> Modella il rumore, non la legge fisica</p>
-                <p><em>Come uno studente che impara a memoria senza capire</em></p>
+                <p><strong>MSE sui dati:</strong> ≈ 0.0</p>
+                <p><strong>Problema:</strong> Modella il rumore del multimetro, non la legge fisica.</p>
             </div>
             
             <div class="model-card good">
                 <h3>📐 Regressione Lineare (Corretto)</h3>
                 <div style="font-size: 2em;">📈</div>
-                <p><strong>MSE sui dati di training:</strong> ≈ 0.02</p>
-                <p><strong>Vantaggio:</strong> Cattura la tendenza generale</p>
-                <p><em>Come uno studente che capisce il concetto</em></p>
+                <p><strong>MSE sui dati:</strong> ≈ 0.02</p>
+                <p><strong>Vantaggio:</strong> Cattura la tendenza generale ignorando il rumore.</p>
             </div>
-        </div>
-        
-        <div class="box">
-            <h3>🎯 Conclusione sull'Overfitting</h3>
-            <p>Se unissimo i puntini, staremmo modellando <strong>gli errori del multimetro (il rumore)</strong>, non la legge fisica del resistore. La retta rossa è migliore proprio perché <strong>ignora le piccole oscillazioni</strong> e cattura la tendenza generale.</p>
         </div>
 
         <hr style="border: 1px solid #ddd; margin: 40px 0;">
 
         <h2>📝 Verifica Ritorno Veloce</h2>
         <div class="quiz-container">
-            <label for="q7">1. Qual è l'obiettivo principale dell'algoritmo di Regressione Lineare?</label>
+            <label for="q7">1. Qual è l'obiettivo dell'algoritmo?</label>
             <select id="q7" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;">
                 <option value="0">Scegli...</option>
-                <option value="sbagliata">Azzerare completamente l'errore (MSE = 0).</option>
-                <option value="corretta">Minimizzare l'MSE (Mean Squared Error) trovando il miglior compromesso.</option>
-                <option value="sbagliata">Collegare tutti i punti con una linea a zig-zag.</option>
+                <option value="sbagliata">Azzerare completamente l'errore (Overfitting).</option>
+                <option value="corretta">Minimizzare l'MSE trovando il miglior compromesso (Generalizzazione).</option>
+                <option value="sbagliata">Collegare i punti a zig-zag.</option>
             </select>
             
             <button id="check-l4" class="quiz-button" onclick="checkL4Quiz()">Verifica Risposta</button>
 
             <div id="reward-l4" class="reward" style="display: none;">
-                <p>Esatto! L'obiettivo è minimizzare l'errore, non azzerarlo (che porterebbe all'Overfitting).</p>
-                <p>Ora che conosci la teoria, è tempo di sviluppare software più complesso.</p>
-                <p><a href="lezione5.html" style="color: #2ecc71; font-weight: bold;">➡️ Vai alla Lezione 5: Sviluppo Software</a></p>
+                <p>Esatto! L'obiettivo è generalizzare, non imparare il rumore a memoria.</p>
+                <p>Ora sei pronto per la Lezione 5: Sviluppo Software.</p>
+                <p><a href="lezione5.html" style="color: #2ecc71; font-weight: bold;">➡️ Vai alla Lezione 5</a></p>
             </div>
         </div>
         
-        <h2>📋 Concetti Chiave da Ricordare</h2>
+        <h2>📋 Concetti da Ricordare</h2>
         <div class="code">
-# RICORDA QUESTI CONCETTI:
-# 1. MSE = media degli errori al quadrato (la "pagella" del modello)
-# 2. Obiettivo ML = minimizzare questo MSE
-# 3. Overfitting = modello troppo complesso che impara il rumore
-# 4. Sottodattamento = modello troppo semplice
-# 5. Modello ottimo = bilancia complessità e accuratezza
+# CONCETTI CHIAVE:
+# 1. MSE = Errore Quadratico Medio (la pagella del modello)
+# 2. Obiettivo = Minimizzare l'MSE
+# 3. Overfitting = Modello troppo complesso che impara il rumore
+# 4. Generalizzazione = Capire la regola generale
         </div>
     </div>
     
     <div class="footer">
         <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
-        <p>Lezione 4: Teoria dell'Errore - MSE e Overfitting</p>
+        <p>Lezione 4: Teoria dell'Errore</p>
         <p>
             <a href="lezione3.html">← Lezione 3</a> | 
             <a href="Python_4.pdf" target="_blank">📄 Scarica PDF Lezione 4</a> | 
@@ -396,7 +384,7 @@ print(f"Il 'Voto' al modello AI (Errore): {errore_ai:.4f}")
             } else {
                 reward.style.display = 'none';
                 button.style.backgroundColor = '#e74c3c';
-                alert("Attenzione: azzerare l'errore spesso significa Overfitting. Riprova!");
+                alert("Attenzione: azzerare l'errore spesso porta all'Overfitting!");
             }
         }
     </script>
