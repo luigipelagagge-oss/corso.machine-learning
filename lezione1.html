@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Lezione 1: Python, AI e ML</title>
     <style>
+        /* CSS OMESSO PER BREVITA' - NESSUNA MODIFICA AGLI STILI ESISTENTI */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -102,6 +103,38 @@
         tr:nth-child(even) {
             background: #f9f9f9;
         }
+        
+        /* NUOVI STILI PER IL QUIZ */
+        .quiz-container {
+            padding: 25px;
+            background: #f0f8ff; /* Azzurro chiaro per evidenziare il quiz */
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .quiz-button {
+            background: #3498db; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .quiz-button:hover {
+            background: #2980b9;
+        }
+
+        .reward {
+            margin-top: 20px; 
+            padding: 15px; 
+            background: #d5f4e6; 
+            border-radius: 5px; 
+            color: #2c3e50;
+        }
     </style>
 </head>
 <body>
@@ -130,24 +163,31 @@
         </div>
         
         <h2 id="gerarchia">🔍 Gerarchia dell'Intelligenza Artificiale</h2>
+        
         <div style="text-align: center; margin: 30px 0;">
+            <p style="color: #2c3e50; font-style: italic;">L'Intelligenza Artificiale è il campo più vasto che contiene tutti gli altri.</p>
+            
+
+[Image of AI ML Deep Learning Venn diagram]
+
             <div style="display: inline-block; background: #e74c3c; color: white; padding: 20px; border-radius: 8px; margin: 10px;">
-                <h3>🤖 AI</h3>
-                <p>Termine più ampio</p>
+                <h3>🤖 AI (Intelligenza Artificiale)</h3>
+                <p>Qualsiasi sistema che imita l'intelligenza umana.</p>
             </div>
             <div style="display: inline-block; font-size: 24px; margin: 10px;">→</div>
             <div style="display: inline-block; background: #3498db; color: white; padding: 20px; border-radius: 8px; margin: 10px;">
-                <h3>📊 ML</h3>
-                <p>Sottoinsieme AI</p>
+                <h3>📊 ML (Machine Learning)</h3>
+                <p>Tecniche che permettono ai sistemi di **imparare dai dati**.</p>
             </div>
             <div style="display: inline-block; font-size: 24px; margin: 10px;">→</div>
             <div style="display: inline-block; background: #2ecc71; color: white; padding: 20px; border-radius: 8px; margin: 10px;">
                 <h3>🧠 Deep Learning</h3>
-                <p>Sottoinsieme ML</p>
+                <p>Sottoinsieme del ML che usa Reti Neurali complesse.</p>
             </div>
         </div>
         
-        <h2>🔄 Programmazione vs Machine Learning</h2>
+        <h2 id="programmazione">🔄 Programmazione vs Machine Learning</h2>
+        <p>Il Machine Learning inverte il paradigma della programmazione tradizionale:</p>
         <table>
             <tr>
                 <th>Aspetto</th>
@@ -167,43 +207,56 @@
             <tr>
                 <td><strong>Esempio Elettronico</strong></td>
                 <td>Calcolare V = R·I con R noto</td>
-                <td>Trovare R da misure V-I</td>
+                <td>Trovare R (o la relazione V-I) da misure V-I</td>
             </tr>
         </table>
         
         <h2 id="esempi">🐍 Esempi di Codice Python</h2>
         
-        <h3>Calcolo Scientifico (NON è ML)</h3>
+        <h3>Calcolo Scientifico (Programmazione Tradizionale)</h3>
+        <p>Usiamo formule note per calcolare un risultato (Logica: **Input + Regole = Output**).</p>
         <div class="code">
-# Importiamo numpy per calcoli matematici
+# Importiamo numpy (libreria per calcoli matematici avanzati)
 import numpy as np
 
 # Calcolo deterministico: seno di 90 gradi
+# np.deg2rad converte i gradi in radianti
 risultato = np.sin(np.deg2rad(90))
+
+# print stampa il risultato
 print(risultato)  # Output: 1.0
         </div>
         
         <h3>Machine Learning (Regressione Lineare)</h3>
+        <p>Il computer impara la relazione (Regola) dai dati (Logica: **Input + Output = Regole**).</p>
         <div class="code">
-# Importiamo la libreria ML
+# Importiamo la classe per la Regressione Lineare (un algoritmo ML)
 from sklearn.linear_model import LinearRegression
 
 # Dati di addestramento: Input (X) e Output (y)
-X = [[1], [2], [3]]  # Input: 1, 2, 3
-y = [2, 4, 6]        # Output: 2, 4, 6
+# X sono i nostri dati di input (es. Tensione), y è l'output (es. Corrente)
+X = [[1], [2], [3]]   # Dati Input
+y = [2, 4, 6]         # Dati Output (il risultato desiderato)
 
-# Il modello impara la relazione y = 2x
+# addestriamo il modello usando i dati (il modello impara la relazione y = 2x)
 model = LinearRegression().fit(X, y)
+
+# Facciamo una previsione: chiediamo al modello qual è l'output per X=4
+# model.predict esegue la previsione
+previsione = model.predict([[4]])
+
+# print stampa il risultato appreso
+print(previsione)  # Output: [8.]
         </div>
         
         <div class="box">
             <h3>📚 Perché Python per il ML?</h3>
             <p>Python è diventato standard grazie alle sue librerie:</p>
             <ul>
-                <li><strong>numpy/scipy</strong> - Calcolo scientifico</li>
-                <li><strong>scikit-learn</strong> - Algoritmi ML</li>
-                <li><strong>matplotlib</strong> - Visualizzazione</li>
-                <li><strong>pandas</strong> - Analisi dati</li>
+                <li><strong>numpy/scipy</strong> - Funzioni matematiche e calcolo scientifico</li>
+                <li><strong>scikit-learn</strong> - Implementazione standard degli algoritmi ML</li>
+                <li><strong>matplotlib</strong> - Creazione di grafici e visualizzazione dati</li>
+                <li><strong>pandas</strong> - Gestione e analisi strutturata dei dati (DataFrames)</li>
             </ul>
         </div>
         
@@ -213,12 +266,54 @@ model = LinearRegression().fit(X, y)
             <p>Se usi formule note → Calcolo Scientifico</p>
             <p>Se apprendi dai dati → Machine Learning</p>
         </div>
-    </div>
+
+        <hr style="border: 1px solid #ddd; margin: 40px 0;">
+
+        <h2>📝 Verifica Ritorno Veloce</h2>
+        <div class="quiz-container">
+            <label for="q4">1. Qual è la differenza principale tra Programmazione Tradizionale e Machine Learning?</label>
+            <select id="q4" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;">
+                <option value="0">Scegli...</option>
+                <option value="sbagliata">La programmazione tradizionale usa Python, il ML usa C++.</option>
+                <option value="corretta">La programmazione tradizionale usa dati e regole per trovare risultati. Il ML usa dati e risultati per trovare le regole (il modello).</option>
+                <option value="sbagliata">Il ML è più veloce della programmazione tradizionale.</option>
+            </select>
+            
+            <button id="check-l1" class="quiz-button" onclick="checkL1Quiz()">Verifica</button>
+
+            <div id="reward-l1" class="reward" style="display: none;">
+                <p>Ottimo! Hai compreso la filosofia del Machine Learning.</p>
+                <p><a href="lezione2.html" style="color: #2ecc71; font-weight: bold;">➡️ Vai alla Lezione 2: Regressione</a></p>
+            </div>
+        </div>
+        </div>
     
     <div class="footer">
         <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
         <p>Lezione 1: Introduzione all'Ecosistema Python</p>
         <p><a href="Python_1.pdf" target="_blank">📄 Scarica la versione PDF completa</a></p>
     </div>
-</body>
+    
+    <script>
+        // Funzione per controllare la risposta del quiz di fine lezione
+        function checkL1Quiz() {
+            // Ottiene il valore selezionato per la domanda
+            const q4 = document.getElementById('q4').value;
+            const reward = document.getElementById('reward-l1');
+            const button = document.getElementById('check-l1');
+            
+            if (q4 === 'corretta') {
+                // Se la risposta è corretta
+                reward.style.display = 'block'; // Mostra il link alla prossima lezione
+                button.style.backgroundColor = '#2ecc71'; // Cambia colore al bottone
+                alert("Quiz superato!");
+            } else {
+                // Se la risposta è errata
+                reward.style.display = 'none';
+                button.style.backgroundColor = '#e74c3c'; // Colore errore
+                alert("Attenzione: risposta errata. Rivedi la sezione 'Programmazione vs Machine Learning'.");
+            }
+        }
+    </script>
+    </body>
 </html>
