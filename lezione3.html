@@ -4,220 +4,357 @@
     <meta charset="UTF-8">
     <title>Lezione 3: Visualizzazione Dati - Grafici V-I</title>
     <style>
-        /* --- BLOCCO CSS BASE (Standard Blue) --- */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f9f9f9;
+            color: #333;
         }
         
         .header {
-            background: linear-gradient(135deg, #3498db, #2980b9);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
             color: white;
-            padding: 30px;
-            border-radius: 10px;
+            padding: 40px;
+            border-radius: 15px;
             text-align: center;
             margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        h1 { margin-bottom: 10px; color: white; }
+        h1 {
+            margin-bottom: 15px;
+            color: white;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
         
         .nav {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
             text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
         }
         
         .nav a {
             display: inline-block;
             margin: 0 10px;
-            padding: 10px 20px;
+            padding: 12px 25px;
             background: #3498db;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: bold;
         }
         
-        .nav a:hover { background: #2980b9; }
+        .nav a:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
         
         .content {
             background: white;
-            padding: 30px;
-            border-radius: 8px;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
         }
         
         h2 {
             color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-            margin-top: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 12px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin-top: 25px;
+            margin-bottom: 15px;
         }
         
         .box {
-            background: #ecf0f1;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #3498db;
-            border-radius: 5px;
+            background: #f8f9fa;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid #3498db;
+            border-radius: 8px;
         }
         
         .box.warning {
-            background: #fff3cd;
-            border-left-color: #ffc107;
+            background: #fff8e1;
+            border-left-color: #ffb300;
         }
         
         .box.success {
-            background: #d4edda;
-            border-left-color: #28a745;
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+        
+        .code-container {
+            position: relative;
+            margin: 25px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .code-header {
+            background: #2c3e50;
+            color: white;
+            padding: 12px 20px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .code {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            border-radius: 5px;
+            background: #263238;
+            color: #e0f2f1;
+            padding: 20px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95em;
             overflow-x: auto;
-            margin: 15px 0;
+            white-space: pre;
+            margin: 0;
+            line-height: 1.5;
+            tab-size: 4;
         }
         
         .step {
             background: #e8f4fc;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            border-left: 3px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+            display: flex;
+            align-items: flex-start;
         }
         
         .step-number {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             background: #3498db;
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             text-align: center;
-            line-height: 30px;
+            line-height: 36px;
             border-radius: 50%;
-            margin-right: 10px;
+            margin-right: 15px;
             font-weight: bold;
+            flex-shrink: 0;
         }
         
         .graph-container {
             text-align: center;
-            margin: 20px 0;
-            padding: 20px;
+            margin: 30px 0;
+            padding: 25px;
             background: #f8f9fa;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 2px dashed #3498db;
         }
         
-        /* Modificato per l'immagine reale */
         .graph-figure {
-            max-width: 90%;
+            max-width: 100%;
             height: auto;
-            border: 1px solid #ccc;
-            padding: 5px;
+            border: 1px solid #ddd;
+            padding: 8px;
             background: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
         
         .note {
             background: #fff3cd;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-size: 0.9em;
-            border-left: 3px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+            display: flex;
+            align-items: flex-start;
         }
-
-        /* QUIZ */
+        
+        .note-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
         .quiz-container {
-            padding: 25px;
+            padding: 30px;
             background: #f0f8ff;
             border: 2px solid #3498db;
-            border-radius: 8px;
-            margin-top: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
         }
-
+        
+        .quiz-question {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .quiz-option {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quiz-option:hover {
+            background: #e8f4fc;
+            border-color: #3498db;
+        }
+        
         .quiz-button {
             background: #3498db;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 30px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
             margin-top: 20px;
+            font-weight: bold;
             transition: background 0.3s;
         }
-        .quiz-button:hover { background: #2980b9; }
-
-        .reward {
-            margin-top: 20px; 
-            padding: 15px; 
-            background: #d5f4e6; 
-            border-radius: 5px; 
-            color: #2c3e50;
+        
+        .quiz-button:hover {
+            background: #2980b9;
         }
-
+        
+        .reward {
+            margin-top: 30px;
+            padding: 20px;
+            background: #d5f4e6;
+            border-radius: 10px;
+            color: #2c3e50;
+            text-align: center;
+            display: none;
+        }
+        
         .footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 50px;
             color: #7f8c8d;
             font-size: 0.9em;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .objective-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .objective-list li {
+            padding: 10px 0 10px 40px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        
+        .objective-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 25px;
+            height: 25px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🎨 Lezione 3: Visualizzazione Dati</h1>
-        <p>Creazione della Caratteristica V-I e Salvataggio File</p>
+        <p class="subtitle">Creazione della Caratteristica V-I e Salvataggio File</p>
         <p><strong>Laboratorio di Sistemi e Automazione</strong></p>
     </div>
-    
+
     <div class="nav">
-        <a href="lezione2.html">← Lezione 2</a>
+        <a href="#introduzione">Introduzione</a>
         <a href="#setup">Setup</a>
-        <a href="#scatter">Scatter Plot</a>
-        <a href="#regressione">Grafico Regressione</a>
+        <a href="#primo-grafico">Primo Grafico</a>
+        <a href="#modello">Modello di Regressione</a>
+        <a href="#grafico-completo">Grafico Completo</a>
         <a href="#salvataggio">Salvataggio</a>
-        <a href="Python_3.pdf" target="_blank">📄 PDF Originale</a>
-        <a href="lezione4.html">Lezione 4 →</a>
+        <a href="#quiz">Quiz</a>
     </div>
-    
+
     <div class="content">
-        <h2>🎯 Introduzione</h2>
-        <p>Nella lezione precedente abbiamo calcolato la resistenza (<em>R</em>) e l'offset. Ora dobbiamo creare il <strong>grafico tecnico</strong> della relazione V-I per visualizzare questi risultati.</p>
+        <h2 id="introduzione">Introduzione alla Visualizzazione Dati</h2>
+        <p>Nella lezione precedente abbiamo imparato a raccogliere dati sperimentali e ad applicare un modello di regressione lineare. In questa lezione, impareremo a visualizzare questi dati in modo efficace tramite grafici, un passaggio fondamentale per l'analisi e la comunicazione dei risultati scientifici.</p>
         
-        <div class="box warning">
-            <h3>⚠️ Avviso per Google Colab</h3>
-            <p>Se hai chiuso il notebook o ricaricato la pagina dopo la Lezione 2, la memoria si è svuotata!</p>
-            <p><strong>Prima di fare i grafici, devi rieseguire l'importazione dei dati e delle librerie.</strong></p>
+        <div class="box">
+            <h3>Obiettivi della Lezione</h3>
+            <ul class="objective-list">
+                <li>Importare e utilizzare le librerie di visualizzazione dati</li>
+                <li>Creare grafici scatter plot per i dati sperimentali</li>
+                <li>Aggiungere rette di regressione ai grafici</li>
+                <li>Personalizzare l'aspetto dei grafici (titoli, etichette, legenda)</li>
+                <li>Salvare i grafici in file immagine per la documentazione</li>
+            </ul>
         </div>
         
-        <h2 id="setup">🔧 Fase 0: Setup dell'Ambiente</h2>
-        <div class="note">
-            <strong>Importante:</strong> Questa fase è necessaria per evitare errori come <code>NameError: name 'plt' is not defined</code> o dati mancanti.
+        <h2 id="setup">1. Setup Iniziale</h2>
+        <p>Per iniziare, dobbiamo importare tutte le librerie necessarie e preparare i dati che utilizzeremo durante la lezione.</p>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div>
+                <h3>Importazione Librerie</h3>
+                <p>Importiamo le librerie fondamentali per il calcolo numerico e la visualizzazione:</p>
+            </div>
+        </div>
+        
+        <div class="code-container">
+            <div class="code-header">
+                <span>Python: Importazione Librerie</span>
+                <span style="font-size:0.8em; opacity:0.8;">Fondamentale per tutti i grafici</span>
+            </div>
+            <pre class="code"># 1. Importiamo TUTTE le librerie necessarie
+import matplotlib.pyplot as plt  # Libreria fondamentale per i grafici
+import numpy as np  # Per i calcoli numerici e gli array
+from sklearn.linear_model import LinearRegression  # Per il modello di regressione</pre>
         </div>
         
         <div class="step">
-            <span class="step-number">1</span>
-            <strong>Importazione Librerie e Dati</strong>
+            <div class="step-number">2</div>
+            <div>
+                <h3>Preparazione Dati</h3>
+                <p>Ricreiamo i dati della Lezione 2 (misure di laboratorio):</p>
+            </div>
         </div>
         
-        <div class="code">
-# 1. Importiamo TUTTE le librerie necessarie
-import matplotlib.pyplot as plt  # Libreria fondamentale per i grafici
-import numpy as np               # Per i calcoli numerici e gli array
-from sklearn.linear_model import LinearRegression  # Per il modello di regressione
-
-# 2. Ricreiamo i dati della Lezione 2 (Misure Lab)
+        <div class="code-container">
+            <div class="code-header">
+                <span>Python: Dati Sperimentali</span>
+                <span style="font-size:0.8em; opacity:0.8;">Dati della Lezione 2</span>
+            </div>
+            <pre class="code"># 2. Ricreiamo i dati della Lezione 2 (Misure Lab)
 # Input (Corrente I)
 X_corrente = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])
+
 # Output (Tensione V misurata)
 y_tensione = np.array([1.1, 1.9, 3.2, 3.8, 5.1])
 
@@ -226,13 +363,24 @@ modello = LinearRegression()
 modello.fit(X_corrente, y_tensione)
 
 print("Setup completato: Librerie caricate e Modello pronto.")
+print(f"Coefficiente angolare (m): {modello.coef_[0]:.3f}")
+print(f"Intercetta (q): {modello.intercept_:.3f}")</pre>
         </div>
         
-        <h2 id="scatter">📊 Fase 1: Lo Scatter Plot (I Punti)</h2>
-        <p>Il primo passo è visualizzare le nostre misure 'grezze'. Usiamo <code>plt.scatter</code> che disegna i punti sperimentali senza collegarli con linee.</p>
+        <div class="note">
+            <div class="note-icon">💡</div>
+            <div>I dati rappresentano misure di tensione (V) in funzione della corrente (I) per un componente elettrico. La regressione lineare ci fornisce la caratteristica V-I del componente.</div>
+        </div>
         
-        <div class="code">
-# Creiamo una figura di dimensioni 8x5 pollici
+        <h2 id="primo-grafico">2. Primo Grafico: Punti Sperimentali</h2>
+        <p>Iniziamo con il grafico più semplice: la visualizzazione dei punti sperimentali.</p>
+        
+        <div class="code-container">
+            <div class="code-header">
+                <span>Python: Primo Grafico</span>
+                <span style="font-size:0.8em; opacity:0.8;">Visualizzazione punti sperimentali</span>
+            </div>
+            <pre class="code"># Creiamo una figura di dimensioni 8x5 pollici
 plt.figure(figsize=(8, 5))
 
 # Disegniamo i punti (Misure): colore blu
@@ -240,21 +388,32 @@ plt.scatter(X_corrente, y_tensione, color='blue', label='Misure Lab')
 
 # Aggiungiamo la legenda per capire cos'è il punto blu
 plt.legend()
+
 # Mostriamo il grafico a schermo
-plt.show()
+plt.show()</pre>
         </div>
         
         <div class="graph-container">
-            <h3>Risultato Atteso (Fase 1):</h3>
-            <img class="graph-figure" src="grafico_VI.png" alt="Grafico V-I completo con punti sperimentali blu e retta di regressione rossa." />
-            <p><em>Figura 1: Rappresentazione dei punti sperimentali (Scatter Plot)</em></p>
+            <h3>Risultato Atteso</h3>
+            <p>Il grafico mostrerà 5 punti blu corrispondenti alle nostre misure sperimentali:</p>
+            <img src="https://via.placeholder.com/600x400/3498db/ffffff?text=Grafico+Punti+Sperimentali" alt="Grafico punti sperimentali" class="graph-figure">
+            <p style="font-size:0.9em; color:#666; margin-top:10px;">Esempio di come apparirà il primo grafico con i punti sperimentali</p>
         </div>
         
-        <h2 id="regressione">📈 Fase 2: Sovrapporre la Regressione</h2>
-        <p>Ora disegniamo la linea rossa che rappresenta il comportamento "ideale" calcolato dall'AI (la retta di regressione).</p>
+        <div class="box warning">
+            <h3>Attenzione!</h3>
+            <p>La funzione <code>plt.scatter()</code> è specifica per disegnare punti, mentre <code>plt.plot()</code> è più adatta per linee continue. Usare la funzione appropriata è importante per una corretta visualizzazione.</p>
+        </div>
         
-        <div class="code">
-# 1. Calcoliamo i valori teorici ideali (sulla retta) usando il modello addestrato
+        <h2 id="modello">3. Aggiunta del Modello di Regressione</h2>
+        <p>Ora aggiungiamo al grafico la retta di regressione che rappresenta il modello calcolato.</p>
+        
+        <div class="code-container">
+            <div class="code-header">
+                <span>Python: Aggiunta Retta di Regressione</span>
+                <span style="font-size:0.8em; opacity:0.8;">Combinazione punti + linea</span>
+            </div>
+<pre class="code"># 1. Calcoliamo i valori teorici ideali (sulla retta) usando il modello addestrato
 y_predetti = modello.predict(X_corrente)
 
 plt.figure(figsize=(8, 5))
@@ -269,64 +428,73 @@ plt.plot(X_corrente, y_predetti, 'r-', linewidth=2, label='Modello Calcolato')
 
 # Mostriamo la legenda e il grafico
 plt.legend()
-plt.show()
+plt.show()</pre>
         </div>
         
         <div class="graph-container">
-            <h3>Risultato Atteso (Fase 2):</h3>
-            <img class="graph-figure" src="grafico_VI.png" alt="Grafico V-I completo con punti sperimentali blu e retta di regressione rossa." />
-            <p><em>Figura 2: Punti sperimentali + Retta di regressione sovrapposta</em></p>
+            <h3>Risultato Atteso</h3>
+            <p>Il grafico ora mostrerà sia i punti sperimentali che la retta di regressione:</p>
+            <img src="https://via.placeholder.com/600x400/3498db/ffffff?text=Grafico+Punti+e+Retta+Regressione" alt="Grafico con retta di regressione" class="graph-figure">
+            <p style="font-size:0.9em; color:#666; margin-top:10px;">Esempio di grafico con punti sperimentali (blu) e retta di regressione (rossa)</p>
         </div>
         
-        <h2>🎨 Fase 3: Il Grafico Tecnico Completo</h2>
-        <p>Un grafico da presentare in una relazione tecnica deve essere <strong>auto-esplicativo</strong> e completo di tutti i dettagli.</p>
+        <h2 id="grafico-completo">4. Grafico Completo e Professionale</h2>
+        <p>Miglioriamo l'aspetto del grafico aggiungendo titoli, etichette, griglia e altri elementi di stile.</p>
         
-        <div class="code">
-plt.figure(figsize=(10, 6))  # Creiamo un foglio più grande per maggiore chiarezza
+        <div class="code-container">
+            <div class="code-header">
+                <span>Python: Grafico Professionale Completo</span>
+                <span style="font-size:0.8em; opacity:0.8;">Tutti gli elementi di un grafico scientifico</span>
+            </div>
+<pre class="code">plt.figure(figsize=(10, 6))  # Creiamo un foglio più grande per maggiore chiarezza
 
 # -- DISEGNO DEI DATI --
 # Punti sperimentali: blu, dimensione (s) aumentata a 80
 plt.scatter(X_corrente, y_tensione, color='blue', s=80, label='Misure Sperimentali')
+
 # Retta di regressione: rossa, spessore 3
 plt.plot(X_corrente, y_predetti, color='red', linewidth=3, label='Caratteristica V-I (Regressione)')
 
 # -- ESTETICA (Labelling) --
-plt.title("Caratteristica V-I Componente Ohmico", fontsize=14) # Titolo
-plt.xlabel("Corrente I [mA]", fontsize=12) # Etichetta asse X con unità
-plt.ylabel("Tensione V [Volt]", fontsize=12) # Etichetta asse Y con unità
+plt.title("Caratteristica V-I Componente Ohmico", fontsize=14)  # Titolo
+plt.xlabel("Corrente I [mA]", fontsize=12)  # Etichetta asse X con unità
+plt.ylabel("Tensione V [Volt]", fontsize=12)  # Etichetta asse Y con unità
 
 # -- DETTAGLI AGGIUNTIVI --
 plt.grid(True, linestyle='--', alpha=0.7)  # Griglia tratteggiata per facilitare la lettura
 plt.legend(fontsize=12)  # Mostra la legenda
 
 # -- OUTPUT --
-plt.show()
+plt.show()</pre>
         </div>
         
-        <div class="box">
-            <h3>💡 Elementi di un Grafico Professionale:</h3>
+        <div class="graph-container">
+            <h3>Risultato Finale</h3>
+            <p>Ecco come apparirà il grafico professionale completo:</p>
+            <img src="https://via.placeholder.com/700x450/3498db/ffffff?text=Grafico+Completo+con+Titolo+Etichette+Griglia" alt="Grafico completo professionale" class="graph-figure">
+            <p style="font-size:0.9em; color:#666; margin-top:10px;">Grafico completo con tutti gli elementi: titolo, etichette, griglia, legenda</p>
+        </div>
+        
+        <div class="box success">
+            <h3>Elementi di un Grafico Scientifico</h3>
             <ul>
-                <li><strong>Titolo descrittivo</strong> (cosa stiamo mostrando)</li>
-                <li><strong>Etichette assi</strong> con unità di misura</li>
-                <li><strong>Legenda</strong> chiara per distinguere dati e modello</li>
-                <li><strong>Griglia</strong> per facilitare la lettura dei valori</li>
-                <li><strong>Dimensioni appropriate</strong> per la stampa o la relazione</li>
+                <li><strong>Titolo</strong>: Descrive chiaramente il contenuto del grafico</li>
+                <li><strong>Etichette assi</strong>: Indicano le variabili con le relative unità di misura</li>
+                <li><strong>Legenda</strong>: Spiega i simboli e le linee utilizzati</li>
+                <li><strong>Griglia</strong>: Facilita la lettura dei valori</li>
+                <li><strong>Dati</strong>: Rappresentati in modo chiaro e non ambiguo</li>
             </ul>
         </div>
-
-        <div class="graph-container">
-            <h3>Risultato Finale Atteso (Grafico Completo):</h3>
-            
-            <img class="graph-figure" src="grafico_VI.png" alt="Grafico V-I completo con punti sperimentali blu e retta di regressione rossa." />
-            
-            <p><em>Figura 3: Grafico tecnico completo (Se non vedi l'immagine, assicurati che <code>grafico_VI.png</code> sia nella Repository)</em></p>
-        </div>
         
-        <h2 id="salvataggio">💾 Fase 4: Salvare il Grafico su File</h2>
-        <p>Per inserire il grafico nella tua relazione, devi salvarlo come file immagine.</p>
+        <h2 id="salvataggio">5. Salvataggio del Grafico</h2>
+        <p>Per documentazione e relazioni, è fondamentale saper salvare i grafici in file immagine.</p>
         
-        <div class="code">
-# Rieseguiamo il codice del grafico completo (SENZA plt.show alla fine)
+        <div class="code-container">
+            <div class="code-header">
+                <span>Python: Salvataggio Grafico su File</span>
+                <span style="font-size:0.8em; opacity:0.8;">Esportazione per relazioni e documentazione</span>
+            </div>
+<pre class="code"># Rieseguiamo il codice del grafico completo (SENZA plt.show alla fine)
 plt.figure(figsize=(10, 6))
 plt.scatter(X_corrente, y_tensione, color='blue', s=80, label='Misure Sperimentali')
 plt.plot(X_corrente, y_predetti, color='red', linewidth=3, label='Caratteristica V-I')
@@ -340,78 +508,135 @@ plt.legend()
 # Salva la figura corrente in un file chiamato "grafico_VI.png"
 plt.savefig("grafico_VI.png", dpi=300)
 
-print("Immagine salvata! Controlla la cartella Files di Colab per scaricarla.")
+print("Immagine salvata! Controlla la cartella Files di Colab per scaricarla.")</pre>
         </div>
         
-        <div class="box success">
-            <h3>✅ Parametri di Salvataggio Importanti:</h3>
-            <p><strong><code>plt.savefig("grafico_VI.png", dpi=300)</code></strong></p>
-            <ul>
-                <li><code>"grafico_VI.png"</code>: Il nome del file. Assicurati che corrisponda a quello che vuoi caricare nel sito.</li>
-                <li><code>dpi=300</code>: (Dots Per Inch) Imposta una risoluzione alta per una stampa nitida.</li>
-            </ul>
-        </div>
-
-        <div class="box warning">
-             <h3>📁 Promemoria Repository</h3>
-             <p>Ricorda la regola della Lezione 1: per vedere il grafico qui sopra, dopo aver scaricato <code>grafico_VI.png</code> da Python/Colab, devi caricarlo nella tua **Repository** (la stessa cartella di questo file HTML).</p>
-        </div>
-        
-        <h2>🧠 E ora? Apriamo la Scatola Nera</h2>
-        <div class="box">
-            <p>Abbiamo visto che la macchina traccia una linea perfetta. Ma <strong>come fa a sceglierla</strong>?</p>
-            <p>Perché non ha tracciato una linea un po' più in alto o un po' più in basso?</p>
-        </div>
-
-        <hr style="border: 1px solid #ddd; margin: 40px 0;">
-
-        <h2 id="verifica">📝 Verifica Concetti Chiave</h2>
-        <div class="quiz-container">
-            <label for="q6">1. Qual è la funzione di Matplotlib usata per disegnare i punti sperimentali (senza collegarli)?</label>
-            <select id="q6" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;">
-                <option value="0">Scegli...</option>
-                <option value="sbagliata">plt.plot()</option>
-                <option value="corretta">plt.scatter()</option>
-                <option value="sbagliata">plt.show()</option>
-                <option value="sbagliata">plt.figure()</option>
-            </select>
-            
-            <button id="check-l3" class="quiz-button" onclick="checkL3Quiz()">Verifica Risposta</button>
-
-            <div id="reward-l3" class="reward" style="display: none;">
-                <p>Esatto! `plt.scatter()` è per i punti dispersi.</p>
-                <p>Sei pronto per capire come la macchina sceglie la retta migliore.</p>
-                <p><a href="lezione4.html" style="color: #2ecc71; font-weight: bold;">➡️ Vai alla Lezione 4: La Teoria dell'Errore</a></p>
+        <div class="step">
+            <div class="step-number">!</div>
+            <div>
+                <h3>Importante</h3>
+                <p>Il comando <code>plt.savefig()</code> deve essere chiamato <strong>prima</strong> di <code>plt.show()</code>. In alternativa, si può omettere <code>plt.show()</code> quando si salva il grafico.</p>
             </div>
         </div>
+        
+        <div class="note">
+            <div class="note-icon">📁</div>
+            <div>
+                <p><strong>Formati di salvataggio supportati:</strong></p>
+                <ul>
+                    <li><strong>PNG</strong>: Per grafici da inserire in presentazioni e documenti</li>
+                    <li><strong>PDF</strong>: Per stampa di alta qualità e documenti vettoriali</li>
+                    <li><strong>SVG</strong>: Grafica vettoriale scalabile</li>
+                    <li><strong>JPG</strong>: Per il web (ma con perdita di qualità)</li>
+                </ul>
+                <p>Esempio: <code>plt.savefig("grafico.pdf", dpi=300)</code></p>
+            </div>
         </div>
+        
+        <h2 id="quiz">Verifica delle Conoscenze</h2>
+        <p>Mettiti alla prova con questo breve quiz per verificare di aver compreso i concetti principali della lezione.</p>
+        
+        <div class="quiz-container">
+            <div class="quiz-question">1. Quale libreria Python utilizziamo principalmente per creare grafici?</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'Matplotlib')">Matplotlib</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'NumPy')">NumPy</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'Pandas')">Pandas</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'SciPy')">SciPy</div>
+            
+            <div class="quiz-question">2. Quale funzione si usa per disegnare punti isolati su un grafico?</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.scatter()')">plt.scatter()</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.plot()')">plt.plot()</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.point()')">plt.point()</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.dot()')">plt.dot()</div>
+            
+            <div class="quiz-question">3. Cosa rappresenta la retta rossa nel nostro grafico V-I?</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'Il modello di regressione lineare')">Il modello di regressione lineare</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'I dati sperimentali')">I dati sperimentali</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'La media dei punti')">La media dei punti</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'L\'errore di misura')">L'errore di misura</div>
+            
+            <div class="quiz-question">4. Quale comando si usa per salvare un grafico in un file PNG?</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.savefig()')">plt.savefig()</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.export()')">plt.export()</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.download()')">plt.download()</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'plt.write()')">plt.write()</div>
+            
+            <button class="quiz-button" onclick="showResults()">Verifica Risposte</button>
+            
+            <div class="reward" id="reward">
+                🎉 Complimenti! Hai completato la lezione sulla visualizzazione dati. Ora sai creare grafici professionali e salvarli per le tue relazioni di laboratorio.
+            </div>
+        </div>
+    </div>
     
     <div class="footer">
-        <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
-        <p>Lezione 3: Visualizzazione Dati con matplotlib</p>
-        <p>
-            <a href="lezione2.html">← Lezione 2</a> | 
-            <a href="Python_3.pdf" target="_blank">📄 Scarica PDF Lezione 3</a> | 
-            <a href="lezione4.html">Lezione 4 →</a>
-        </p>
+        <p>Laboratorio di Sistemi e Automazione - Lezione 3: Visualizzazione Dati</p>
+        <p>Materiale didattico per il corso di ingegneria | © 2023</p>
     </div>
-
+    
     <script>
-        function checkL3Quiz() {
-            const q6 = document.getElementById('q6').value;
-            const reward = document.getElementById('reward-l3');
-            const button = document.getElementById('check-l3');
+        let correctAnswers = 0;
+        const totalQuestions = 4;
+        
+        function checkAnswer(element, correctValue) {
+            // Rimuovi la selezione da tutte le opzioni
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.style.background = 'white';
+                opt.style.borderColor = '#ddd';
+            });
             
-            if (q6 === 'corretta') {
-                reward.style.display = 'block';
-                button.style.backgroundColor = '#2ecc71';
-                alert("Quiz superato! Sei pronto per la Teoria dell'Errore.");
+            // Seleziona l'opzione cliccata
+            element.style.background = '#e8f4fc';
+            element.style.borderColor = '#3498db';
+            
+            // Verifica se la risposta è corretta
+            const userAnswer = element.textContent;
+            if (userAnswer === correctValue) {
+                if (!element.dataset.checked) {
+                    correctAnswers++;
+                    element.dataset.checked = 'true';
+                }
             } else {
-                reward.style.display = 'none';
-                button.style.backgroundColor = '#e74c3c';
-                alert("Attenzione: risposta errata. Rivedi la sezione 'Fase 1: Lo Scatter Plot'.");
+                if (element.dataset.checked) {
+                    correctAnswers--;
+                    delete element.dataset.checked;
+                }
             }
         }
+        
+        function showResults() {
+            const reward = document.getElementById('reward');
+            if (correctAnswers === totalQuestions) {
+                reward.innerHTML = `🎉 Perfetto! Hai risposto correttamente a tutte e ${totalQuestions} le domande! Hai padroneggiato i concetti della visualizzazione dati.`;
+                reward.style.display = 'block';
+            } else if (correctAnswers >= totalQuestions/2) {
+                reward.innerHTML = `👍 Buon lavoro! Hai risposto correttamente a ${correctAnswers} domande su ${totalQuestions}. Ripassa i concetti in cui hai avuto difficoltà.`;
+                reward.style.display = 'block';
+            } else {
+                reward.innerHTML = `📚 Ci siamo quasi! Hai risposto correttamente a ${correctAnswers} domande su ${totalQuestions}. Ti consiglio di rileggere la lezione prima di riprovare.`;
+                reward.style.display = 'block';
+            }
+            
+            // Scorri fino alla sezione reward
+            reward.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Smooth scrolling per i link di navigazione
+        document.querySelectorAll('.nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
+
