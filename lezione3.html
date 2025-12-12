@@ -117,24 +117,13 @@
             border: 2px dashed #3498db;
         }
         
-        .graph-placeholder {
-            display: inline-block;
-            width: 300px;
-            height: 200px;
-            background: linear-gradient(45deg, #e0e0e0 25%, #f0f0f0 25%, #f0f0f0 50%, #e0e0e0 50%, #e0e0e0 75%, #f0f0f0 75%);
-            background-size: 20px 20px;
-            margin: 10px;
-            position: relative;
-        }
-        
-        .graph-placeholder::after {
-            content: "📊 Grafico Python";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #666;
-            font-weight: bold;
+        /* Modificato per l'immagine reale */
+        .graph-figure {
+            max-width: 90%;
+            height: auto;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background: white;
         }
         
         .note {
@@ -175,15 +164,6 @@
             color: #2c3e50;
         }
 
-        /* Immagine Grafico */
-        .graph-figure {
-            max-width: 90%;
-            height: auto;
-            border: 1px solid #ccc;
-            padding: 5px;
-            background: white;
-        }
-        
         .footer {
             text-align: center;
             margin-top: 40px;
@@ -266,7 +246,7 @@ plt.show()
         
         <div class="graph-container">
             <h3>Risultato Atteso (Fase 1):</h3>
-            <div class="graph-placeholder"></div>
+            <img class="graph-figure" src="grafico_VI.png" alt="Grafico V-I completo con punti sperimentali blu e retta di regressione rossa." />
             <p><em>Figura 1: Rappresentazione dei punti sperimentali (Scatter Plot)</em></p>
         </div>
         
@@ -294,7 +274,7 @@ plt.show()
         
         <div class="graph-container">
             <h3>Risultato Atteso (Fase 2):</h3>
-            <div class="graph-placeholder"></div>
+            <img class="graph-figure" src="grafico_VI.png" alt="Grafico V-I completo con punti sperimentali blu e retta di regressione rossa." />
             <p><em>Figura 2: Punti sperimentali + Retta di regressione sovrapposta</em></p>
         </div>
         
