@@ -237,6 +237,28 @@
         .quiz-button:hover {
             background: #2980b9;
         }
+
+        /* Nuova classe per il bottone di navigazione */
+        .next-lesson-btn {
+            background: #27ae60; /* Verde */
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .next-lesson-btn:hover {
+            background: #219150;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
         
         .reward {
             margin-top: 30px;
@@ -396,7 +418,7 @@ plt.show()</pre>
         <div class="graph-container">
             <h3>Risultato Atteso</h3>
             <p>Il grafico mostrerà 5 punti blu corrispondenti alle nostre misure sperimentali:</p>
-            <img src="grafico_misure.png" alt="Grafico punti sperimentali" class="graph-figure">
+            <div style="width: 100%; height: 300px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc;">[Grafico Scatter: Punti Blu]</div>
             <p style="font-size:0.9em; color:#666; margin-top:10px;">Esempio di come apparirà il primo grafico con i punti sperimentali</p>
         </div>
         
@@ -434,7 +456,7 @@ plt.show()</pre>
         <div class="graph-container">
             <h3>Risultato Atteso</h3>
             <p>Il grafico ora mostrerà sia i punti sperimentali che la retta di regressione:</p>
-            <img src="grafico_VI.png" alt="Grafico con retta di regressione" class="graph-figure">
+            <div style="width: 100%; height: 300px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc;">[Grafico: Punti Blu + Retta Rossa]</div>
             <p style="font-size:0.9em; color:#666; margin-top:10px;">Esempio di grafico con punti sperimentali (blu) e retta di regressione (rossa)</p>
         </div>
         
@@ -471,7 +493,7 @@ plt.show()</pre>
         <div class="graph-container">
             <h3>Risultato Finale</h3>
             <p>Ecco come apparirà il grafico professionale completo:</p>
-            <img src="grafico_VI.png" alt="Grafico completo professionale" class="graph-figure">
+            <div style="width: 100%; height: 300px; background-color: #eee; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc;">[Grafico Completo Professionale]</div>
             <p style="font-size:0.9em; color:#666; margin-top:10px;">Grafico completo con tutti gli elementi: titolo, etichette, griglia, legenda</p>
         </div>
         
@@ -537,35 +559,42 @@ print("Immagine salvata! Controlla la cartella Files di Colab per scaricarla.")<
         <p>Mettiti alla prova con questo breve quiz per verificare di aver compreso i concetti principali della lezione.</p>
         
         <div class="quiz-container">
-            <div class="quiz-question">1. Quale libreria Python utilizziamo principalmente per creare grafici?</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'Matplotlib')">Matplotlib</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'NumPy')">NumPy</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'Pandas')">Pandas</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'SciPy')">SciPy</div>
+            <div class="quiz-question-block" id="q1">
+                <div class="quiz-question">1. Quale libreria Python utilizziamo principalmente per creare grafici?</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'Matplotlib')">Matplotlib</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'NumPy')">NumPy</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'Pandas')">Pandas</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'SciPy')">SciPy</div>
+            </div>
             
-            <div class="quiz-question">2. Quale funzione si usa per disegnare punti isolati su un grafico?</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.scatter()')">plt.scatter()</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.plot()')">plt.plot()</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.point()')">plt.point()</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.dot()')">plt.dot()</div>
+            <div class="quiz-question-block" id="q2">
+                <div class="quiz-question">2. Quale funzione si usa per disegnare punti isolati su un grafico?</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.scatter()')">plt.scatter()</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.plot()')">plt.plot()</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.point()')">plt.point()</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.dot()')">plt.dot()</div>
+            </div>
             
-            <div class="quiz-question">3. Cosa rappresenta la retta rossa nel nostro grafico V-I?</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'Il modello di regressione lineare')">Il modello di regressione lineare</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'I dati sperimentali')">I dati sperimentali</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'La media dei punti')">La media dei punti</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'L\'errore di misura')">L'errore di misura</div>
+            <div class="quiz-question-block" id="q3">
+                <div class="quiz-question">3. Cosa rappresenta la retta rossa nel nostro grafico V-I?</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'Il modello di regressione lineare')">Il modello di regressione lineare</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'I dati sperimentali')">I dati sperimentali</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'La media dei punti')">La media dei punti</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'L\'errore di misura')">L'errore di misura</div>
+            </div>
             
-            <div class="quiz-question">4. Quale comando si usa per salvare un grafico in un file PNG?</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.savefig()')">plt.savefig()</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.export()')">plt.export()</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.download()')">plt.download()</div>
-            <div class="quiz-option" onclick="checkAnswer(this, 'plt.write()')">plt.write()</div>
+            <div class="quiz-question-block" id="q4">
+                <div class="quiz-question">4. Quale comando si usa per salvare un grafico in un file PNG?</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.savefig()')">plt.savefig()</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.export()')">plt.export()</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.download()')">plt.download()</div>
+                <div class="quiz-option" onclick="checkAnswer(this, 'plt.write()')">plt.write()</div>
+            </div>
             
             <button class="quiz-button" onclick="showResults()">Verifica Risposte</button>
             
             <div class="reward" id="reward">
-                🎉 Complimenti! Hai completato la lezione sulla visualizzazione dati. Ora sai creare grafici professionali e salvarli per le tue relazioni di laboratorio.
-            </div>
+                </div>
         </div>
     </div>
     
@@ -575,46 +604,72 @@ print("Immagine salvata! Controlla la cartella Files di Colab per scaricarla.")<
     </div>
     
     <script>
-        let correctAnswers = 0;
+        // Array per tenere traccia delle risposte corrette
+        // Inizializzato a false per le 4 domande
+        let userAnswers = [false, false, false, false];
         const totalQuestions = 4;
         
         function checkAnswer(element, correctValue) {
-            // Rimuovi la selezione da tutte le opzioni
-            document.querySelectorAll('.quiz-option').forEach(opt => {
+            // Trova il blocco della domanda corrente (il genitore dell'opzione cliccata)
+            const questionBlock = element.parentNode;
+            
+            // Rimuovi la selezione da tutte le opzioni SOLO di questa domanda
+            questionBlock.querySelectorAll('.quiz-option').forEach(opt => {
                 opt.style.background = 'white';
                 opt.style.borderColor = '#ddd';
+                opt.removeAttribute('data-selected');
             });
             
             // Seleziona l'opzione cliccata
             element.style.background = '#e8f4fc';
             element.style.borderColor = '#3498db';
+            element.setAttribute('data-selected', 'true');
             
-            // Verifica se la risposta è corretta
-            const userAnswer = element.textContent;
-            if (userAnswer === correctValue) {
-                if (!element.dataset.checked) {
-                    correctAnswers++;
-                    element.dataset.checked = 'true';
-                }
+            // Identifica l'indice della domanda basandosi sull'ordine nel DOM
+            // Questo permette di gestire il punteggio correttamente
+            const allQuestionBlocks = document.querySelectorAll('.quiz-question-block');
+            let questionIndex = Array.from(allQuestionBlocks).indexOf(questionBlock);
+            
+            // Verifica se la risposta è corretta e aggiorna l'array
+            if (element.textContent === correctValue) {
+                userAnswers[questionIndex] = true;
             } else {
-                if (element.dataset.checked) {
-                    correctAnswers--;
-                    delete element.dataset.checked;
-                }
+                userAnswers[questionIndex] = false;
             }
         }
         
         function showResults() {
             const reward = document.getElementById('reward');
-            if (correctAnswers === totalQuestions) {
-                reward.innerHTML = `🎉 Perfetto! Hai risposto correttamente a tutte e ${totalQuestions} le domande! Hai padroneggiato i concetti della visualizzazione dati.`;
+            // Calcola il numero di risposte corrette (true) nell'array
+            const correctCount = userAnswers.filter(Boolean).length;
+            
+            if (correctCount === totalQuestions) {
+                reward.innerHTML = `
+                    <h3 style="margin-top:0">🎉 Eccellente!</h3>
+                    <p>Hai risposto correttamente a tutte le domande! Hai padroneggiato i concetti della visualizzazione dati.</p>
+                    <a href="lezione4.html" class="next-lesson-btn">Vai alla Lezione 4 ➡️</a>
+                `;
                 reward.style.display = 'block';
-            } else if (correctAnswers >= totalQuestions/2) {
-                reward.innerHTML = `👍 Buon lavoro! Hai risposto correttamente a ${correctAnswers} domande su ${totalQuestions}. Ripassa i concetti in cui hai avuto difficoltà.`;
+                reward.className = 'reward success'; // Opzionale: stile aggiuntivo se necessario
+                reward.style.background = '#d5f4e6';
+                reward.style.border = '2px solid #27ae60';
+            } else if (correctCount >= totalQuestions/2) {
+                reward.innerHTML = `
+                    <h3 style="margin-top:0; color:#d35400">👍 Buon lavoro!</h3>
+                    <p>Hai risposto correttamente a ${correctCount} domande su ${totalQuestions}.</p>
+                    <p>Riprova per sbloccare la prossima lezione.</p>
+                `;
                 reward.style.display = 'block';
+                reward.style.background = '#fff8e1';
+                reward.style.border = '2px solid #f39c12';
             } else {
-                reward.innerHTML = `📚 Ci siamo quasi! Hai risposto correttamente a ${correctAnswers} domande su ${totalQuestions}. Ti consiglio di rileggere la lezione prima di riprovare.`;
+                reward.innerHTML = `
+                    <h3 style="margin-top:0; color:#c0392b">📚 Riprova</h3>
+                    <p>Hai risposto correttamente a ${correctCount} domande su ${totalQuestions}. Ti consiglio di rileggere la lezione.</p>
+                `;
                 reward.style.display = 'block';
+                reward.style.background = '#fadbd8';
+                reward.style.border = '2px solid #e74c3c';
             }
             
             // Scorri fino alla sezione reward
