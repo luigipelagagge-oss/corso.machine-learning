@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Lezione 3: Visualizzazione Dati - Grafici V-I</title>
     <style>
-        /* --- BLOCCO CSS BASE (Standardizzato) --- */
+        /* --- BLOCCO CSS BASE (Standard Blue) --- */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -15,7 +15,7 @@
         }
         
         .header {
-            background: linear-gradient(135deg, #3498db, #2980b9); /* Colore standard blu */
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             padding: 30px;
             border-radius: 10px;
@@ -23,10 +23,7 @@
             margin-bottom: 30px;
         }
         
-        h1 {
-            color: white;
-            margin-bottom: 10px;
-        }
+        h1 { margin-bottom: 10px; color: white; }
         
         .nav {
             background: white;
@@ -40,11 +37,14 @@
             display: inline-block;
             margin: 0 10px;
             padding: 10px 20px;
-            background: #3498db; /* Colore standard blu */
+            background: #3498db;
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            transition: background 0.3s;
         }
+        
+        .nav a:hover { background: #2980b9; }
         
         .content {
             background: white;
@@ -54,13 +54,13 @@
         
         h2 {
             color: #2c3e50;
-            border-bottom: 2px solid #3498db; /* Colore standard blu */
+            border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
             margin-top: 30px;
         }
         
         .box {
-            background: #ecf0f1; /* Colore neutro standard */
+            background: #ecf0f1;
             padding: 20px;
             margin: 20px 0;
             border-left: 4px solid #3498db;
@@ -87,15 +87,8 @@
             margin: 15px 0;
         }
         
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
-        
         .step {
-            background: #e8f4fc; /* Colore step standard */
+            background: #e8f4fc;
             padding: 15px;
             margin: 15px 0;
             border-radius: 5px;
@@ -153,7 +146,7 @@
             border-left: 3px solid #ffc107;
         }
 
-        /* STILI PER IL QUIZ */
+        /* QUIZ */
         .quiz-container {
             padding: 25px;
             background: #f0f8ff;
@@ -172,10 +165,7 @@
             margin-top: 20px;
             transition: background 0.3s;
         }
-
-        .quiz-button:hover {
-            background: #2980b9;
-        }
+        .quiz-button:hover { background: #2980b9; }
 
         .reward {
             margin-top: 20px; 
@@ -185,12 +175,20 @@
             color: #2c3e50;
         }
 
-        /* STILE PER L'IMMAGINE DEL GRAFICO */
+        /* Immagine Grafico */
         .graph-figure {
             max-width: 90%;
             height: auto;
             border: 1px solid #ccc;
             padding: 5px;
+            background: white;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -338,16 +336,14 @@ plt.show()
 
         <div class="graph-container">
             <h3>Risultato Finale Atteso (Grafico Completo):</h3>
-            <img class="graph-figure" src="grafico_esempio.png" alt="Grafico V-I completo con punti sperimentali blu e retta di regressione rossa, titolo, etichette assi e legenda." />
-            <p><em>Figura 3: Grafico tecnico completo della caratteristica V-I</em></p>
+            
+            <img class="graph-figure" src="grafico_VI.png" alt="Grafico V-I completo con punti sperimentali blu e retta di regressione rossa." />
+            
+            <p><em>Figura 3: Grafico tecnico completo (Se non vedi l'immagine, assicurati che <code>grafico_VI.png</code> sia nella Repository)</em></p>
         </div>
         
         <h2 id="salvataggio">💾 Fase 4: Salvare il Grafico su File</h2>
         <p>Per inserire il grafico nella tua relazione, devi salvarlo come file immagine.</p>
-        
-        <div class="note">
-            <strong>Nota su Colab:</strong> Dopo aver eseguito questo codice, il file non appare magicamente sul tuo PC. Devi aprire la **cartella "Files"** (icona a sinistra dello schermo in Colab) per trovare e scaricare l'immagine <code>grafico_VI.png</code>.
-        </div>
         
         <div class="code">
 # Rieseguiamo il codice del grafico completo (SENZA plt.show alla fine)
@@ -362,44 +358,29 @@ plt.legend()
 
 # --- COMANDO DI SALVATAGGIO ---
 # Salva la figura corrente in un file chiamato "grafico_VI.png"
-# dpi=300 garantisce un'alta risoluzione adatta per la stampa professionale
 plt.savefig("grafico_VI.png", dpi=300)
-
-# Solo dopo aver salvato, possiamo mostrare il grafico a schermo (opzionale)
-# plt.show() 
 
 print("Immagine salvata! Controlla la cartella Files di Colab per scaricarla.")
         </div>
         
         <div class="box success">
             <h3>✅ Parametri di Salvataggio Importanti:</h3>
-            <p><strong><code>plt.savefig("nome_file.png", dpi=300)</code></strong></p>
+            <p><strong><code>plt.savefig("grafico_VI.png", dpi=300)</code></strong></p>
             <ul>
-                <li><code>"nome_file.png"</code>: Il nome e l'estensione del file (es. .png, .pdf, .jpg).</li>
+                <li><code>"grafico_VI.png"</code>: Il nome del file. Assicurati che corrisponda a quello che vuoi caricare nel sito.</li>
                 <li><code>dpi=300</code>: (Dots Per Inch) Imposta una risoluzione alta per una stampa nitida.</li>
-                <li><strong>Dove viene salvato?</strong> Nella "current working directory" (la cartella di lavoro attiva) dell'ambiente Python.</li>
             </ul>
         </div>
 
         <div class="box warning">
              <h3>📁 Promemoria Repository</h3>
-             <p>Ricorda la regola della Lezione 1: se vuoi che questo grafico (<code>grafico_VI.png</code>) sia visibile nel tuo sito web o nella tua documentazione HTML, dopo averlo scaricato da Colab, devi caricarlo nella tua **Repository** (la stessa cartella dei file <code>.html</code>).</p>
-        </div>
-        
-        <h2>🔗 Risorse Online</h2>
-        <div class="box">
-            <p>Vuoi vedere il codice in azione senza digitare tutto?</p>
-            <p style="text-align: center;">
-                <a href="#" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
-                    [ ESECUZIONE PROGRAMMA IN COLAB ]
-                </a>
-            </p>
+             <p>Ricorda la regola della Lezione 1: per vedere il grafico qui sopra, dopo aver scaricato <code>grafico_VI.png</code> da Python/Colab, devi caricarlo nella tua **Repository** (la stessa cartella di questo file HTML).</p>
         </div>
         
         <h2>🧠 E ora? Apriamo la Scatola Nera</h2>
         <div class="box">
-            <p>Abbiamo visto che la macchina traccia una linea perfetta (la regressione). Ma <strong>come fa a sceglierla</strong>?</p>
-            <p>Perché non ha tracciato una linea un po' più in alto o un po' più in basso? Cosa significa "miglior" retta?</p>
+            <p>Abbiamo visto che la macchina traccia una linea perfetta. Ma <strong>come fa a sceglierla</strong>?</p>
+            <p>Perché non ha tracciato una linea un po' più in alto o un po' più in basso?</p>
         </div>
 
         <hr style="border: 1px solid #ddd; margin: 40px 0;">
@@ -423,21 +404,7 @@ print("Immagine salvata! Controlla la cartella Files di Colab per scaricarla.")
                 <p><a href="lezione4.html" style="color: #2ecc71; font-weight: bold;">➡️ Vai alla Lezione 4: La Teoria dell'Errore</a></p>
             </div>
         </div>
-        <h2>📋 Riassunto Comandi matplotlib</h2>
-        <div class="code">
-# COMANDI FONDAMENTALI MATPLOTLIB
-plt.figure(figsize=(10, 6))      # Crea figura dimensioni 10x6 pollici
-plt.scatter(x, y)                # Disegna punti (scatter plot)
-plt.plot(x, y, 'r-')             # Disegna linea (rossa e continua)
-plt.title("Titolo")              # Aggiunge titolo
-plt.xlabel("Etichetta X")        # Etichetta asse X
-plt.ylabel("Etichetta Y")        # Etichetta asse Y
-plt.grid(True)                   # Attiva griglia
-plt.legend()                     # Mostra legenda
-plt.show()                       # Mostra grafico a schermo
-plt.savefig("file.png", dpi=300) # Salva grafico su file
         </div>
-    </div>
     
     <div class="footer">
         <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
@@ -466,5 +433,5 @@ plt.savefig("file.png", dpi=300) # Salva grafico su file
             }
         }
     </script>
-    </body>
+</body>
 </html>
