@@ -10,13 +10,12 @@
     <style>
         /* CSS BASE */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
             max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             background-color: #f5f5f5;
-            color: #333;
         }
         
         .header {
@@ -26,10 +25,12 @@
             border-radius: 10px;
             text-align: center;
             margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
-        h1 { margin-bottom: 10px; }
+        h1 {
+            color: white;
+            margin-bottom: 10px;
+        }
         
         .nav {
             background: white;
@@ -37,7 +38,6 @@
             border-radius: 8px;
             margin-bottom: 20px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         .nav a {
@@ -47,17 +47,13 @@
             background: #3498db;
             color: white;
             text-decoration: none;
-            border-radius: 20px;
-            transition: background 0.3s;
+            border-radius: 5px;
         }
-        
-        .nav a:hover { background: #2980b9; }
         
         .content {
             background: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
         h2 {
@@ -72,17 +68,24 @@
             padding: 20px;
             margin: 20px 0;
             border-left: 4px solid #3498db;
-            border-radius: 4px;
+            border-radius: 5px;
         }
         
-        .box.warning { background: #fff3cd; border-left-color: #ffc107; color: #856404; }
-        .box.success { background: #d4edda; border-left-color: #28a745; color: #155724; }
+        .box.warning {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+        }
+        
+        .box.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
         
         .code {
             background: #2c3e50;
             color: #ecf0f1;
             padding: 15px;
-            font-family: 'Consolas', 'Courier New', monospace;
+            font-family: 'Courier New', monospace;
             border-radius: 5px;
             overflow-x: auto;
             margin: 15px 0;
@@ -101,17 +104,20 @@
             text-align: center;
         }
         
-        .data-table th { background: #3498db; color: white; }
+        .data-table th {
+            background: #3498db;
+            color: white;
+        }
         
-        /* Stile migliorato per le formule */
         .formula {
             text-align: center;
-            font-size: 1.3em;
-            margin: 25px 0;
+            font-size: 1.3em; /* Leggermente più grande */
+            margin: 20px 0;
             padding: 20px;
             background: #f8f9fa;
-            border: 1px dashed #3498db;
-            border-radius: 8px;
+            border-radius: 5px;
+            font-family: 'Cambria', 'Times New Roman', serif;
+            border: 1px dashed #ccc;
         }
         
         .step {
@@ -153,8 +159,6 @@
             margin-top: 20px;
             transition: background 0.3s;
         }
-        
-        .quiz-button:hover { background: #2980b9; }
 
         .reward {
             margin-top: 20px; 
@@ -162,16 +166,6 @@
             background: #d5f4e6; 
             border-radius: 5px; 
             color: #2c3e50;
-            border: 1px solid #2ecc71;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #7f8c8d;
-            font-size: 0.9em;
         }
     </style>
 </head>
@@ -179,6 +173,7 @@
     <div class="header">
         <h1>📈 Lezione 2: Machine Learning in Elettronica</h1>
         <p>Caratterizzazione V-I e Regressione Lineare</p>
+        <p><strong>Laboratorio di Sistemi e Automazione</strong></p>
     </div>
     
     <div class="nav">
@@ -186,7 +181,7 @@
         <a href="#obiettivo">Obiettivo</a>
         <a href="#modello">Modello Fisico</a>
         <a href="#codice">Codice Python</a>
-        <a href="Python_2.pdf" target="_blank">📄 PDF</a>
+        <a href="Python_2.pdf" target="_blank">📄 PDF Originale</a>
         <a href="lezione3.html">Lezione 3 →</a>
     </div>
     
@@ -334,10 +329,13 @@ print(f"Offset/errore multimetro: {offset:.2f} V")
         
         <h2 id="visuale">👁️ Che cos'è visivamente la Regressione?</h2>
         <div style="text-align: center; margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-            <div style="font-size: 3em;">📈</div>
+            <div style="font-size: 2em;">📈</div>
             <p><strong>La Retta di Regressione</strong> è la linea che passa "nel mezzo" della nuvola di punti, minimizzando la distanza media da ciascuno di essi.</p>
             <p>È il <em>miglior compromesso possibile</em> tra tutti gli errori di misura.</p>
-        </div>
+            
+            <p style="margin-top: 20px; font-weight: bold;">Rappresentazione Grafica:</p>
+            
+            </div>
         
         <hr style="border: 1px solid #ddd; margin: 40px 0;">
 
@@ -354,15 +352,13 @@ print(f"Offset/errore multimetro: {offset:.2f} V")
             <button id="check-l2" class="quiz-button" onclick="checkL2Quiz()">Verifica Risposta</button>
 
             <div id="reward-l2" class="reward" style="display: none;">
-                <p><strong>Ottimo!</strong> 🚀</p>
-                <p>La pendenza della retta indica quanto aumenta la tensione per ogni mA di corrente in più. Questa è proprio la definizione di Resistenza!</p>
+                <p>Ottimo! L'obiettivo della Regressione qui è stimare il parametro fisico (R).</p>
                 <p><a href="lezione3.html" style="color: #2ecc71; font-weight: bold;">➡️ Vai alla Lezione 3: Visualizzazione Dati</a></p>
             </div>
         </div>
-        
         <h2 id="prossimo">🔮 Prossimo Step: La Visualizzazione</h2>
         <div class="box">
-            <p>I numeri da soli non bastano. Nella prossima lezione impareremo a:</p>
+            <p>I numeri da soli non bastano a un tecnico. Nella prossima lezione impareremo a:</p>
             <ol>
                 <li>Disegnare i punti sperimentali (Scatter Plot)</li>
                 <li>Sovrapporre la retta calcolata</li>
@@ -393,14 +389,19 @@ print(f"Offset/errore multimetro: {offset:.2f} V")
                 <td><strong>scikit-learn</strong></td>
                 <td>Libreria Python per Machine Learning</td>
             </tr>
+            <tr>
+                <td><strong>Dati Realistici</strong></td>
+                <td>Le misure sperimentali hanno sempre errori</td>
+            </tr>
         </div>
     </div>
     
     <div class="footer">
         <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
+        <p>Lezione 2: Regressione Lineare e Caratterizzazione V-I</p>
         <p>
             <a href="lezione1.html">← Lezione 1</a> | 
-            <a href="Python_2.pdf" target="_blank">📄 PDF</a> | 
+            <a href="Python_2.pdf" target="_blank">📄 Scarica PDF Lezione 2</a> | 
             <a href="lezione3.html">Lezione 3 →</a>
         </p>
     </div>
@@ -414,13 +415,14 @@ print(f"Offset/errore multimetro: {offset:.2f} V")
             if (q5 === 'corretta') {
                 reward.style.display = 'block';
                 button.style.backgroundColor = '#2ecc71';
-                button.textContent = "Risposta Corretta!";
+                alert("Quiz superato! Sei pronto per la Visualizzazione.");
             } else {
                 reward.style.display = 'none';
                 button.style.backgroundColor = '#e74c3c';
-                alert("Attenzione: risposta errata. Ricorda: m moltiplica x (Input/Corrente). Cosa moltiplica la corrente nella legge di Ohm?");
+                alert("Attenzione: risposta errata. Rivedi la sezione 'Il Modello Fisico' per il mapping.");
             }
         }
     </script>
     </body>
 </html>
+
