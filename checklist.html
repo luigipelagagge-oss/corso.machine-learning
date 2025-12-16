@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Mappa del Progetto - Master Dashboard</title>
     <style>
-        /* --- STILE STRUTTURALE (Tree View) --- */
+        /* --- STILE BASE --- */
         body {
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             background-color: #fafafa;
@@ -32,117 +32,83 @@
             color: #555;
             font-weight: bold;
             position: relative;
-            display: flex; /* Flexbox per allineare gli elementi */
+            display: flex; 
             align-items: center;
-            flex-wrap: wrap; /* Permette di andare a capo su schermi piccoli */
+            flex-wrap: wrap; 
             border-bottom: 1px solid #f0f0f0;
         }
 
-        /* --- ELEMENTI GRAFICI --- */
+        /* --- TESTI E ICONE --- */
         .filename { 
-            color: #2c3e50; 
-            font-weight: bold; 
-            font-size: 1.1em; 
-            margin-right: 15px;
-            text-decoration: none;
-            min-width: 150px;
+            color: #2c3e50; font-weight: bold; font-size: 1.1em; margin-right: 15px;
+            text-decoration: none; min-width: 150px;
         }
-        a:hover .filename { color: #3498db; text-decoration: underline; }
-
         .icon { font-size: 1.3em; margin-right: 10px; width: 25px; text-align: center; }
         .folder-icon { color: #f39c12; margin-right: 5px; font-size: 1.2em; }
-        
-        /* --- BADGE E BOTTONI --- */
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            font-family: 'Segoe UI', sans-serif;
-            margin-left: 5px;
-            text-decoration: none;
-            transition: all 0.2s;
-            border: 1px solid transparent;
-            cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        /* Bottone VEDI PAGINA (Output) */
-        .btn-view {
-            background-color: #ecf0f1;
-            color: #2c3e50;
-            border-color: #bdc3c7;
-        }
-        .btn-view:hover { background-color: #bdc3c7; transform: translateY(-1px); }
-
-        /* Bottone PDF */
-        .btn-pdf {
-            background-color: #fce4ec;
-            color: #c0392b;
-            border-color: #e57373;
-        }
-        .btn-pdf:hover { background-color: #f8bbd0; transform: translateY(-1px); }
-
-        /* NUOVO: Bottone SORGENTE (Allineato a Destra) */
-        .btn-source {
-            background-color: #34495e;
-            color: #ecf0f1;
-            border-color: #2c3e50;
-            margin-left: auto; /* <--- QUESTA PROPRIETA' SPINGE IL BOTTONE A DESTRA */
-            font-family: 'Consolas', monospace;
-        }
-        .btn-source:hover { background-color: #2c3e50; color: #fff; transform: translateY(-1px); }
-
-        /* Preview Immagini */
-        .img-preview {
-            height: 35px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            margin-left: 15px;
-            vertical-align: middle;
-            transition: transform 0.2s;
-            background: white;
-            padding: 2px;
-        }
-        .img-preview:hover {
-            transform: scale(4); /* Zoom immagine */
-            position: relative;
-            z-index: 100;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            border-color: #3498db;
-        }
-
         .comment { color: #95a5a6; font-style: italic; font-size: 0.9em; margin-left: 15px; font-weight: normal; }
         .root-folder { font-size: 1.3em; font-weight: bold; color: #2c3e50; margin-bottom: 20px; }
 
-        /* Shortcut Sottoramo Dashboard */
+        /* --- BOTTONI --- */
+        .badge {
+            display: inline-block; padding: 4px 10px; border-radius: 4px;
+            font-size: 0.85em; font-family: 'Segoe UI', sans-serif; margin-left: 5px;
+            text-decoration: none; cursor: pointer; border: 1px solid transparent;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.2s;
+        }
+
+        /* Bottone VEDI PAGINA (Output Renderizzato) */
+        .btn-view { background-color: #ecf0f1; color: #2c3e50; border-color: #bdc3c7; }
+        .btn-view:hover { background-color: #bdc3c7; transform: translateY(-1px); }
+
+        /* Bottone PDF */
+        .btn-pdf { background-color: #fce4ec; color: #c0392b; border-color: #e57373; }
+        .btn-pdf:hover { background-color: #f8bbd0; transform: translateY(-1px); }
+
+        /* Bottone SORGENTE (Funzione JS) */
+        .btn-source {
+            background-color: #2c3e50; /* Sfondo Scuro */
+            color: #00ff00; /* Testo verde stile terminale */
+            border-color: #000;
+            margin-left: auto; /* SPINGE A DESTRA */
+            font-family: 'Consolas', monospace;
+        }
+        .btn-source:hover { 
+            background-color: #000; 
+            color: #00ff00; 
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.4); 
+        }
+
+        /* --- PREVIEW IMMAGINI --- */
+        .img-preview {
+            height: 35px; border: 1px solid #ddd; border-radius: 3px; margin-left: 15px;
+            vertical-align: middle; transition: transform 0.2s; background: white; padding: 2px;
+        }
+        .img-preview:hover {
+            transform: scale(4); position: relative; z-index: 100;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); border-color: #3498db;
+        }
+
+        /* --- SHORTCUT DASHBOARD --- */
         .shortcut-branch {
-            width: 100%; /* Occupa nuova riga nel flex */
-            margin-left: 40px !important;
-            border-left: 2px solid #3498db !important;
-            background: #f8f9fa;
-            font-size: 0.9em;
+            width: 100%; margin-left: 40px !important; border-left: 2px solid #3498db !important;
+            background: #f8f9fa; font-size: 0.9em;
         }
         .shortcut-branch li { border-bottom: none; padding: 2px 10px; }
         .arrow { color: #3498db; margin-right: 5px; }
 
         .btn-back {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 12px 25px;
-            background: #2c3e50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
+            display: inline-block; margin-top: 40px; padding: 12px 25px;
+            background: #2c3e50; color: white; text-decoration: none;
+            border-radius: 5px; font-family: 'Segoe UI', sans-serif; font-weight: bold;
         }
-        .btn-back:hover { background: #34495e; }
     </style>
 </head>
 <body>
 
     <h1>📂 Mappa del Progetto - Master Dashboard</h1>
+    <p style="color:#666; margin-bottom: 20px;">
+        <small>Nota: Il tasto "Sorgente" apre una finestra di lettura codice. Per modificare, usa il tuo editor (es. VS Code).</small>
+    </p>
 
     <div class="root-folder">📁 Corso_Machine_Learning/</div>
 
@@ -154,19 +120,19 @@
                     <span class="icon">📄</span> <a href="index.html" class="filename">index.html</a>
                     <a href="index.html" class="badge btn-view">👁️ Output</a>
                     <span class="comment">// Home Page</span>
-                    <a href="index.html" target="_blank" class="badge btn-source" title="Vedi Codice">&lt;/&gt; Sorgente</a>
+                    <button onclick="mostraSorgente('index.html')" class="badge btn-source">&lt;/&gt; Vedi Codice</button>
                 </li>
                 <li>
                     <span class="icon">📄</span> <a href="checklist.html" class="filename">checklist.html</a>
                     <a href="checklist.html" class="badge btn-view">👁️ Output</a>
                     <span class="comment">// (Questa pagina)</span>
-                    <a href="checklist.html" target="_blank" class="badge btn-source" title="Vedi Codice">&lt;/&gt; Sorgente</a>
+                    <button onclick="mostraSorgente('checklist.html')" class="badge btn-source">&lt;/&gt; Vedi Codice</button>
                 </li>
                 
                 <li style="flex-wrap: wrap;">
                     <span class="icon">📄</span> <a href="Python_Sommario_0.html" class="filename">Python_Sommario_0.html</a>
                     <a href="Python_Sommario_0.html" class="badge btn-view">👁️ Apri Indice</a>
-                    <a href="Python_Sommario_0.html" target="_blank" class="badge btn-source" title="Vedi Codice">&lt;/&gt; Sorgente</a>
+                    <button onclick="mostraSorgente('Python_Sommario_0.html')" class="badge btn-source">&lt;/&gt; Vedi Codice</button>
 
                     <ul class="shortcut-branch">
                         <li><span class="arrow">↳</span> <a href="lezione1.html">Lezione 1: Concetti</a></li>
@@ -189,7 +155,7 @@
                         <li>
                             <span class="icon">📄</span> <a href="lezione1.html" class="filename">lezione1.html</a>
                             <a href="lezione1.html" class="badge btn-view">👁️ Output</a>
-                            <a href="lezione1.html" target="_blank" class="badge btn-source">&lt;/&gt; Sorgente</a>
+                            <button onclick="mostraSorgente('lezione1.html')" class="badge btn-source">&lt;/&gt; Vedi Codice</button>
                         </li>
                         <li>
                             <span class="icon">🖼️</span> <span class="filename">ai_gerarchia.png</span>
@@ -208,7 +174,7 @@
                         <li>
                             <span class="icon">📄</span> <a href="lezione2.html" class="filename">lezione2.html</a>
                             <a href="lezione2.html" class="badge btn-view">👁️ Output</a>
-                            <a href="lezione2.html" target="_blank" class="badge btn-source">&lt;/&gt; Sorgente</a>
+                            <button onclick="mostraSorgente('lezione2.html')" class="badge btn-source">&lt;/&gt; Vedi Codice</button>
                         </li>
                         <li>
                             <span class="icon">📕</span> <a href="Python_2.pdf" class="filename">Python_2.pdf</a>
@@ -216,22 +182,18 @@
                         </li>
                     </ul>
                 </li>
-
+                
                 <li>
                     <span class="folder-icon">📁</span> Lezione_03
                     <ul>
                         <li>
                             <span class="icon">📄</span> <a href="lezione3.html" class="filename">lezione3.html</a>
                             <a href="lezione3.html" class="badge btn-view">👁️ Output</a>
-                            <a href="lezione3.html" target="_blank" class="badge btn-source">&lt;/&gt; Sorgente</a>
+                            <button onclick="mostraSorgente('lezione3.html')" class="badge btn-source">&lt;/&gt; Vedi Codice</button>
                         </li>
                         <li>
                             <span class="icon">🖼️</span> <span class="filename">grafico_misure.png</span>
                             <img src="grafico_misure.png" class="img-preview" alt="Scatter">
-                        </li>
-                        <li>
-                            <span class="icon">🖼️</span> <span class="filename">grafico_VI.png</span>
-                            <img src="grafico_VI.png" class="img-preview" alt="Retta">
                         </li>
                         <li>
                             <span class="icon">📕</span> <a href="Python_3.pdf" class="filename">Python_3.pdf</a>
@@ -246,8 +208,7 @@
                         <li>
                             <span class="icon">📄</span> <a href="lezione6.html" class="filename">lezione6.html</a>
                             <a href="lezione6.html" class="badge btn-view">👁️ Output</a>
-                            <span class="comment">// Include codice e grafici</span>
-                            <a href="lezione6.html" target="_blank" class="badge btn-source">&lt;/&gt; Sorgente</a>
+                            <button onclick="mostraSorgente('lezione6.html')" class="badge btn-source">&lt;/&gt; Vedi Codice</button>
                         </li>
                         <li>
                             <span class="icon">🖼️</span> <span class="filename">grafico_diodo.png</span>
@@ -264,6 +225,65 @@
     </ul>
 
     <a href="index.html" class="btn-back">⬅ Torna alla Home</a>
+
+    <script>
+        function mostraSorgente(url) {
+            // Tentativo di fetch del file
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Errore nel caricamento del file.");
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    // Crea una nuova finestra
+                    let win = window.open("", "_blank", "width=800,height=600");
+                    
+                    // Scrive dentro la finestra un'area di testo con il codice
+                    win.document.write(`
+                        <html>
+                        <head>
+                            <title>Sorgente: ${url}</title>
+                            <style>
+                                body { margin: 0; background: #282c34; height: 100vh; display: flex; flex-direction: column; }
+                                textarea { 
+                                    flex: 1; 
+                                    background: #282c34; 
+                                    color: #abb2bf; 
+                                    font-family: 'Consolas', monospace; 
+                                    font-size: 14px; 
+                                    padding: 20px; 
+                                    border: none; 
+                                    resize: none; 
+                                    outline: none;
+                                }
+                                .header {
+                                    background: #21252b;
+                                    color: #98c379;
+                                    padding: 10px 20px;
+                                    font-family: sans-serif;
+                                    font-size: 12px;
+                                    border-bottom: 1px solid #181a1f;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="header">VISUALIZZATORE SORGENTE (Sola lettura) - File: ${url}</div>
+                            <textarea spellcheck="false">${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</textarea>
+                        </body>
+                        </html>
+                    `);
+                })
+                .catch(error => {
+                    alert("⚠️ ATTENZIONE: Blocco di Sicurezza Browser\n\n" +
+                          "Se stai aprendo questo file direttamente (senza un server locale), " +
+                          "Chrome/Edge impedisce la lettura automatica del codice per sicurezza (CORS).\n\n" +
+                          "SOLUZIONE: Fai click destro sul file -> 'Apri con' -> 'Blocco Note' o 'VS Code'.");
+                    console.error(error);
+                });
+        }
+    </script>
 
 </body>
 </html>
