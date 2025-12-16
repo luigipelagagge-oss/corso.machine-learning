@@ -2,394 +2,231 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Lezione 5: Sviluppo Software - Automazione Circuitale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lezione 5: La Non-Linearità</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        /* --- STILE BASE --- */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        /* --- TEMA ARANCIONE (CANTIERE/SVILUPPO) --- */
-        .header {
-            background: linear-gradient(135deg, #f39c12, #e67e22); /* Arancione */
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        h1 { margin-bottom: 10px; color: white; }
-        
-        .nav {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .nav a {
-            display: inline-block;
-            margin: 0 10px;
-            padding: 10px 20px;
-            background: #f39c12; /* Bottone Arancione */
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-        
-        .nav a:hover { background: #d35400; }
-        
-        .content {
-            background: white;
-            padding: 30px;
-            border-radius: 8px;
-        }
-        
-        h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #f39c12; /* Sottolineatura Arancione */
-            padding-bottom: 10px;
-            margin-top: 30px;
-        }
-        
-        /* BOX */
-        .box {
-            background: #fef9e7; /* Sfondo arancione chiarissimo */
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #f39c12;
-            border-radius: 5px;
-        }
-        
-        .box.warning {
-            background: #fff3cd;
-            border-left-color: #ffc107;
-        }
-        
-        .box.success {
-            background: #d4edda;
-            border-left-color: #28a745;
-        }
-        
-        .box.info {
-            background: #d6eaf8;
-            border-left-color: #3498db;
-        }
-        
-        /* CODICE */
-        .code {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 15px 0;
-        }
-        
-        /* STEP */
-        .step {
-            background: #fef9e7;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            border-left: 3px solid #f39c12;
-        }
-        
-        .step-number {
-            display: inline-block;
-            background: #f39c12;
-            color: white;
-            width: 30px;
-            height: 30px;
-            text-align: center;
-            line-height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-        
-        /* VISUAL ELEMENTS */
-        .function-visual {
-            background: #fef9e7;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-            border: 2px dashed #f39c12;
-        }
-        
-        .circuit-diagram {
-            text-align: center;
-            margin: 30px 0;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-        
-        .diagram-element {
-            display: inline-block;
-            padding: 10px 15px;
-            border: 2px solid #2c3e50;
-            border-radius: 4px;
-            font-weight: bold;
-            color: #2c3e50;
-            background: #ecf0f1;
+        :root {
+            --primary-color: #0284c7;
+            --primary-dark: #0369a1;
+            --secondary-color: #f1f5f9;
+            --text-color: #334155;
+            --code-bg: #1e293b;
+            --success-color: #22c55e;
+            --warning-color: #f59e0b; /* Arancione per l'avviso */
+            --danger-color: #ef4444;
         }
 
-        .workflow {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: var(--text-color); line-height: 1.6; }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        header h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        header p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* NAV */
+        .nav-bar {
+            background: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             display: flex;
-            justify-content: space-around;
-            align-items: center;
+            justify-content: center;
+            gap: 1rem;
             flex-wrap: wrap;
-            margin: 30px 0;
         }
+        .nav-bar a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        .nav-bar a:hover { background-color: var(--secondary-color); color: var(--primary-color); }
+
+        /* CONTENT */
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
         
-        .workflow-step {
-            text-align: center;
-            padding: 15px;
+        .card {
             background: white;
-            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            border-left: 5px solid var(--warning-color);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* BOX VARIANT */
+        .box {
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             border-radius: 8px;
-            width: 150px;
-            margin: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid;
+        }
+        .box.info { background-color: #f0f9ff; border-color: var(--primary-color); }
+        .box.alert { background-color: #fef2f2; border-color: var(--danger-color); }
+
+        /* CODE */
+        .code-container {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .code-header {
+            background-color: #0f172a;
+            color: #94a3b8;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: monospace;
+            display: flex; justify-content: space-between;
+        }
+        pre { margin: 0; padding: 1.5rem; overflow-x: auto; color: #e2e8f0; font-family: 'Consolas', monospace; }
+        .keyword { color: #c084fc; } 
+        .func { color: #38bdf8; } 
+        .string { color: #86efac; } 
+        .comment { color: #64748b; font-style: italic; }
+
+        /* FOOTER */
+        footer {
+            text-align: center; margin-top: 4rem; padding: 2rem; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0;
         }
         
-        .workflow-arrow { font-size: 2em; color: #f39c12; }
-
-        /* QUIZ */
-        .quiz-container {
-            padding: 25px;
-            background: #fef9e7;
-            border: 2px solid #f39c12;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
-
-        .quiz-button {
-            background: #f39c12;
+        .btn-next {
+            display: inline-block;
+            background-color: var(--primary-color);
             color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
             transition: background 0.3s;
         }
-        .quiz-button:hover { background: #d35400; }
-
-        .reward {
-            margin-top: 20px; 
-            padding: 15px; 
-            background: #d5f4e6; 
-            border-radius: 5px; 
-            color: #2c3e50;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #7f8c8d;
-            font-size: 0.9em;
-        }
+        .btn-next:hover { background-color: var(--primary-dark); }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>💻 Lezione 5: Diventiamo Sviluppatori</h1>
-        <p>Creare una Libreria per il Calcolo e il Disegno Circuitale</p>
-        <p><strong>Laboratorio di Sistemi e Automazione</strong></p>
-    </div>
-    
-    <div class="nav">
+
+    <header>
+        <h1>⚡ Lezione 5: La Non-Linearità</h1>
+        <p>Dal Resistore al Diodo: Quando le rette non bastano più</p>
+    </header>
+
+    <div class="nav-bar">
         <a href="lezione4.html">← Lezione 4</a>
-        <a href="#obiettivo">Obiettivo</a>
-        <a href="#funzioni">Funzioni Python</a>
-        <a href="#schemdraw">Disegno Circuiti</a>
-        <a href="#programma">Programma Completo</a>
-        <a href="Python_5.pdf" target="_blank">📄 PDF Originale</a>
+        <a href="#physics">La Fisica</a>
+        <a href="#data">I Dati Reali</a>
+        <a href="#failure">Il Fallimento</a>
         <a href="lezione6.html">Lezione 6 →</a>
     </div>
-    
-    <div class="content">
-        <h2 id="obiettivo">🎯 Obiettivo: Automatizzare il Lavoro</h2>
-        <p>Nelle lezioni precedenti abbiamo scritto codice "usa e getta". Oggi faremo un salto di qualità.</p>
-        
-        <div class="box success">
-            <h3>🚀 Creeremo un nostro <strong>programma modulare</strong> (una piccola "libreria") che:</h3>
-            <ol>
-                <li><strong>Calcola</strong> che batteria serve per alimentare un carico (Legge di Ohm).</li>
-                <li><strong>Disegna</strong> automaticamente lo schema elettrico corrispondente.</li>
-            </ol>
-        </div>
-        
-        <h2 id="funzioni">🔧 Passo 1: La Funzione Matematica</h2>
-        <p>Invece di riscrivere la formula <strong>V = R · I</strong> ogni volta, creiamo una <strong>Funzione</strong> riutilizzabile.</p>
-        
-        <div class="function-visual">
-            <div style="font-size: 2em;">⚡</div>
-            <h3>In Python, una funzione è come un 'componente integrato':</h3>
-            <p><strong>Pin di ingresso</strong> → argomenti (corrente, resistenza)</p>
-            <p><strong>Pin di uscita</strong> → return (tensione)</p>
-        </div>
-        
-        <div class="box warning">
-            <h3>⚠️ Attenzione all'Indentazione!</h3>
-            <p>In Python gli spazi sono fondamentali. Il codice dentro la funzione deve essere spostato a destra (tasto TAB).</p>
-        </div>
-        
-        <div class="code">
-def calcola_batteria(corrente_mA, resistenza_kOhm):
-    """
-    Input: Corrente in mA, Resistenza in kOhm
-    Output: Tensione in Volt
-    """
-    # Calcolo la tensione (Nota: i "kilo" e i "milli" si annullano)
-    tensione = corrente_mA * resistenza_kOhm
-    
-    # Restituisco il risultato (Pin di uscita)
-    return tensione
-        </div>
-        
-        <h2 id="schemdraw">🎨 Passo 2: Il Disegno Tecnico (Schemdraw)</h2>
-        <p>Python può disegnare circuiti professionali per noi usando una libreria chiamata <strong>Schemdraw</strong>.</p>
-        
-        <div class="box info">
-            <h3>📦 Installazione Libreria</h3>
-            <p>Poiché Schemdraw non è installata di base, su Colab dobbiamo usare il comando magico <code>!pip install</code>.</p>
-        </div>
-        
-        <div class="code">
-# 1. Installiamo la libreria
-!pip install schemdraw
 
-# 2. Importiamo i moduli
-import schemdraw
-import schemdraw.elements as elm
+    <div class="container">
 
-# 3. Creiamo la funzione che disegna
-def disegna_circuito(tensione, resistenza):
-    print(f"Sto disegnando il circuito: {tensione}V su {resistenza} kOhm...")
-    
-    with schemdraw.Drawing() as d:
-        d.add(elm.SourceV().label(f"{tensione} V"))
-        d.add(elm.Resistor().right().label(rf"{resistenza} k$\Omega$"))
-        d.add(elm.Line().down())
-        d.add(elm.Line().left())
-        </div>
-        
-        <div class="circuit-diagram">
-            <h3>🎨 Schema Elettrico Generato</h3>
-            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px;">
-                <div class="diagram-element">⚡ 11.0V</div>
-                <span>─────</span>
-                <div class="diagram-element">📏 2.2 kΩ</div>
-                <span>─────</span>
-                <div class="diagram-element">⏚ GND</div>
-            </div>
-        </div>
-        
-        <h2 id="programma">🚀 Passo 3: Il Programma Completo</h2>
-        <p>Mettiamo insieme i pezzi. L'utente inserisce i dati e il sistema calcola la batteria e genera lo schema.</p>
-        
-        <div class="workflow">
-            <div class="workflow-step">
-                <div style="font-size: 2em;">🔢</div>
-                <h4>Input</h4>
-            </div>
-            <div class="workflow-arrow">→</div>
-            <div class="workflow-step">
-                <div style="font-size: 2em;">🧮</div>
-                <h4>Funzione Calcolo</h4>
-            </div>
-            <div class="workflow-arrow">→</div>
-            <div class="workflow-step">
-                <div style="font-size: 2em;">🎨</div>
-                <h4>Funzione Disegno</h4>
-            </div>
-        </div>
-        
-        <div class="code">
-# ---- MAIN PROGRAM ----
-I_target = 5.0   # 5mA
-R_carico = 2.2   # 2.2 kOhm
+        <div class="card" id="physics">
+            <h2>⚛️ Il Cambio di Paradigma</h2>
+            <p>Nelle lezioni 1-4 abbiamo studiato il <strong>Resistore</strong>. Era semplice perché segue la Legge di Ohm: una linea retta perfetta.</p>
+            <p>Oggi introduciamo il <strong>Diodo</strong>. Questo componente si comporta come una valvola: blocca la corrente finché non si raggiunge una certa pressione (tensione), poi si spalanca.</p>
 
-# FASE 1: CALCOLO
-V_necessaria = calcola_batteria(I_target, R_carico)
-print(f"Serve una batteria da {V_necessaria} Volt")
-
-# FASE 2: DISEGNO
-disegna_circuito(V_necessaria, R_carico)
-        </div>
-        
-        <h2>🔗 Collegamento con Google Colab</h2>
-        <div class="box info">
-            <p style="text-align: center;">
-                <a href="#" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
-                    [ APRI GENERATORE SCHEMI SU COLAB ]
-                </a>
-            </p>
-        </div>
-
-        <hr style="border: 1px solid #ddd; margin: 40px 0;">
-
-        <h2>📝 Verifica Concetti Software</h2>
-        <div class="quiz-container">
-            <label for="q5">1. Qual è il vantaggio principale di creare una funzione?</label>
-            <select id="q5" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;">
-                <option value="0">Scegli...</option>
-                <option value="sbagliata">Rende il codice più colorato.</option>
-                <option value="corretta">Permette di riutilizzare il codice molte volte (Modularità).</option>
-                <option value="sbagliata">Fa eseguire il codice più velocemente.</option>
-            </select>
             
-            <button id="check-l5" class="quiz-button" onclick="checkL5Quiz()">Verifica Risposta</button>
 
-            <div id="reward-l5" class="reward" style="display: none;">
-                <p>Esatto! La modularità è la chiave.</p>
-                <p>Ora siamo pronti per affrontare la non-linearità.</p>
-                <p><a href="lezione6.html" style="color: #27ae60; font-weight: bold;">➡️ Vai alla Lezione 6: Il Diodo</a></p>
+            <div class="box info">
+                <h3>Equazione di Shockley</h3>
+                <p>La relazione tra Tensione ($V$) e Corrente ($I$) non è più lineare, ma esponenziale:</p>
+                <div style="font-size: 1.2rem; text-align: center; margin: 15px 0;">
+                    $$ I = I_S \cdot (e^{\frac{V}{nV_T}} - 1) $$
+                </div>
             </div>
         </div>
-        
+
+        <div class="card" id="data">
+            <h2>📊 Acquisizione Dati Reali</h2>
+            <p>Carichiamo i dati sperimentali di un diodo reale (con rumore di misura) usando Python.</p>
+
+            <div class="code-container">
+                <div class="code-header"><span>load_data.py</span><span>Python</span></div>
+                <pre>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+<span class="comment"># 1. Carichiamo il dataset</span>
+df = pd.read_csv(<span class="string">'dati_diodo.csv'</span>)
+
+<span class="comment"># 2. Estraiamo le colonne</span>
+V = df[<span class="string">'Volts'</span>].values.reshape(-1, <span class="keyword">1</span>)
+I = df[<span class="string">'Amperes'</span>].values
+
+<span class="comment"># 3. Visualizziamo</span>
+plt.scatter(V, I, color=<span class="string">'blue'</span>, label=<span class="string">'Dati Reali'</span>)
+plt.show()</pre>
+            </div>
+            <p>Se guardi il grafico generato, vedrai una curva "a bastone da hockey": piatta all'inizio, poi sale ripidamente.</p>
+        </div>
+
+        <div class="card" id="failure">
+            <h2>💥 L'Esperimento Fallito</h2>
+            <p>Proviamo a usare lo strumento che conosciamo bene: la <strong>Regressione Lineare</strong> (usata nelle lezioni passate).</p>
+            
+            <div class="code-container">
+                <div class="code-header"><span>bad_fit.py</span><span>Python</span></div>
+                <pre>
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
+
+modello = LinearRegression()
+modello.fit(V, I)  <span class="comment"># Proviamo a forzare una retta</span>
+
+I_pred = modello.predict(V)</pre>
+            </div>
+
+            
+
+            <div class="box alert">
+                <h3>❌ Risultato: Underfitting</h3>
+                <p>Guardando il grafico sopra, è evidente il disastro:</p>
+                <ul>
+                    <li>Il modello cerca di tracciare una linea dritta attraverso una curva.</li>
+                    <li>Sbaglia sia nella zona piatta (corrente negativa prevista!) sia nella zona di salita.</li>
+                </ul>
+                <p>Questo errore si chiama <strong>Bias</strong> (o Underfitting): il nostro modello è troppo "semplice" per capire la realtà.</p>
+            </div>
+        </div>
+
+        <div class="card" style="text-align: center; border-color: var(--primary-color);">
+            <h3>🚀 Come curviamo la retta?</h3>
+            <p>Abbiamo bisogno di un modello più flessibile.</p>
+            <p>Nella prossima lezione vedremo come trasformare la nostra retta rigida in una curva morbida usando la <strong>Regressione Polinomiale</strong>.</p>
+
+            <a href="lezione6.html" class="btn-next">Vai alla Lezione 6: Polinomi →</a>
+        </div>
+
     </div>
-    
-    <div class="footer">
+
+    <footer>
         <p>Laboratorio di Sistemi e Automazione - ML per Elettronica</p>
-        <p>Lezione 5: Sviluppo Software e Automazione</p>
-        <p>
-            <a href="lezione4.html">← Lezione 4</a> | 
-            <a href="Python_5.pdf" target="_blank">📄 Scarica PDF Lezione 5</a> | 
-            <a href="lezione6.html">Lezione 6 →</a>
-        </p>
-    </div>
+        <p>Lezione 5: Introduzione alla Non-Linearità</p>
+    </footer>
 
-    <script>
-        function checkL5Quiz() {
-            const q5 = document.getElementById('q5').value;
-            const reward = document.getElementById('reward-l5');
-            const button = document.getElementById('check-l5');
-            
-            if (q5 === 'corretta') {
-                reward.style.display = 'block';
-                button.style.backgroundColor = '#27ae60';
-                alert("Quiz superato!");
-            } else {
-                reward.style.display = 'none';
-                button.style.backgroundColor = '#e74c3c';
-                alert("Riprova: pensa alla modularità.");
-            }
-        }
-    </script>
 </body>
 </html>
+
